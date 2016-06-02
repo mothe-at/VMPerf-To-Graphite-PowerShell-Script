@@ -21,7 +21,7 @@ A good practice could be pulling data every 15 minutes for small/medium deployme
 
 There are two ways you can infinitely run the script:
 
-##### Use Windows Task Scheduler to call the script every n minutes
+#### Method 1: Use Windows Task Scheduler to call the script every n minutes
 This is the best practice. You call the script in your desired interval with Windows Task Scheduler or any other scheduling service of your choice. Calling it with the appropriate parameters will let the script run forever, even if something went wrong with PowerShell, PowerCLI or something else.
 
 To achive this, the script must "know" about the last time statistics were successfully collected from VCenter. If so, the script will try to pull all statistics data from the time of the last run up till now. To remember date and time of the last poll the script will save this information in an XML file. You have to specify the path and filename of this XLM file with the parameter `-FromLastPoll <Filename>`. Lets say you are pulling data from several different VCenter Servers, you have to specify a unique filename for each job.
@@ -36,7 +36,7 @@ Calling the script could look something like this:
 
 It does not matter if you wait 10 minutes or 10 hours until you run the script the next time, it will gather all metrics starting at the time of the last succesfull poll. But remember that VCenter only stores real-time data for the last 24 hours by default!
 
-##### Call the script and let it control the iterations and sleep-times
+#### Method 2: Call the script and let it control the iterations and sleep-times
 This is the second way, you call the script once without the `-Iterations` parameter and it will run forever (or until you cancel it). Here you can specify the `-Sleepseconds <Int32>` parameter which controls the time it waits after each iteration.
 
 The script has extensive error handling but nevertheless it could happen that a PowerShell or PowerCLI process unexpetedly stopps or, even worse, hangs and does not return control back to the script. It could take hours until you realize that no data is collected for a certain amount of time and, murphy sais, you will for sure need this data desperately.
