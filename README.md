@@ -20,7 +20,7 @@ Blabla
 
 ### Parameters and Description
 ```
-\-Server <String>
+-Server <String>
     Specifies the IP address or the DNS name of the vCenter server to which you want to connect.
 
     Required?                    false
@@ -29,7 +29,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-User <String>
+-User <String>
     Specifies the user name you want to use for authenticating with the vCenter server.
 
     Required?                    false
@@ -38,7 +38,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-Password <String>
+-Password <String>
     Specifies the password you want to use for authenticating with the vCenter server.
 
     Required?                    false
@@ -47,7 +47,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-Protocol <String>
+-Protocol <String>
     Specifies the Internet protocol you want to use for the connection. It can be either http or https.
 
     Required?                    false
@@ -56,7 +56,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-Datacenter <String[]>
+-Datacenter <String[]>
     Specifies the VMWare Datacenters you want to receive data from. Default is to read all Clusters managed by
     VCenter server.
 
@@ -66,7 +66,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-Cluster <String[]>
+-Cluster <String[]>
     Specifies the VMWare Clusters you want to receive data from. Default is to read all Clusters managed by
     VCenter server or, if -Datacenter is specified, all Clusters in this Datacenter.
 
@@ -76,7 +76,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-Graphiteserver <String>
+-Graphiteserver <String>
     Specifies the IP address or the DNS name of the Graphite server to which you want to connect.
 
     Required?                    false
@@ -85,7 +85,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-Graphiteserverport <Int32>
+-Graphiteserverport <Int32>
     Specifies the port on the Graphite server you want to use for the connection. Defaults to 2003.
 
     Required?                    false
@@ -94,7 +94,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-Group <String>
+-Group <String>
     Specifies the Group, an additional prefix for the metrics path in Graphite. The metrics path will be
     "vmperf.<Group>."
 
@@ -104,7 +104,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-Sleepseconds <Int32>
+-Sleepseconds <Int32>
     Specifies the number of seconds to wait between iterations. The counter starts after the last statistics have
     been sent to Graphite.
     Note that VCenter is collecting its performance statistics every 20 seconds and saves an average of the
@@ -120,7 +120,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-Iterations <Int32>
+-Iterations <Int32>
     Specifies the number of iterations. 0 = indefinitely.
 
     Required?                    false
@@ -129,7 +129,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-FromLastPoll <String>
+-FromLastPoll <String>
     Optional path and name of an .xml file where the date and time of the last poll will be saved.
     If the file does not exist, it will be created and overwritten after each poll.
     If this parameter is set, the script will try to receive all metrics from the VCenter Server starting at the
@@ -144,7 +144,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-Whatif [<SwitchParameter>]
+-Whatif [<SwitchParameter>]
     Indicate that the cmdlet will process but will NOT send any metrics to Graphite, instead display a list of
     metrics that would be sent to Graphite.
 
@@ -154,7 +154,7 @@ Blabla
     Accept pipeline input?       false
     Accept wildcard characters?  false
 
-\-EventLogLevel <String>
+-EventLogLevel <String>
     Set the Log-Level for writing events to the Windows Aplication log. Valid values are Error, Warning,
     Information, and None. The default value is Warning.
     Note that if you like to use logging to the Windows Event Log, you have to run this script at least once with
@@ -171,7 +171,39 @@ Blabla
     ErrorAction, ErrorVariable, WarningAction, WarningVariable,
     OutBuffer, PipelineVariable, and OutVariable. For more information, see
     about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ```
 
+### Examples
+#### Example 1
+`PS C:\>VMPerf-To-Graphite.ps1 -Verbose`
+
+Use default values from within this script and display the status output on the screen.
+
+#### Example 2
+`PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass
+-Sleepseconds 300 -Graphiteserver graphite1.it.acme.com -Group Vienna`
+
+Read the counters from the VCenter server myvcenter.vienna.acme.com, send the metrics to graphite1.it.acme.com
+with a metrics path of "vmperf.Vienna." and then wait 5 minutes before the next iteration.
+
+#### Example 3
+`PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass
+-Sleepseconds 300 -Graphiteserver graphite1.it.acme.com -Group Vienna -Cluster TESTDEV`
+
+Read the counters from Cluster TESTDEV in the VCenter server myvcenter.vienna.acme.com, send the metrics to
+graphite1.it.acme.com with a metrics path of "vmperf.Vienna." and then wait 5 minutes before the next iteration.
+
+#### Example 4
+`PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Iterations 1 -WhatIf | Out-GridView`
+
+Run the cmdlet just once, but do not send the metrics to Graphite, instead open a window and display the results.
+
+#### Example 5
+`PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass
+-Graphiteserver graphite1.it.acme.com -Iterations 1 -FromLastPoll Vienna_Poll.xml`
+
+Run the cmdlet just once. Write the date and time of the Poll to Vienna_Poll.xml. The next time the script runs,
+it will read the file and gather the metrics from VCenter starting at the last poll.
 
 
