@@ -30,6 +30,14 @@ To achive this, the script must "know" about the last time statistics were succe
 You also have to tell the script just to run once and then quit using the `-Iterations 1` parameter.
 
 
+Calling the script could look something like this:
+
+`PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass
+-Graphiteserver graphite1.it.acme.com -Iterations 1 -FromLastPoll Vienna_Poll.xml`
+
+
+#######################
+
 
 
 
