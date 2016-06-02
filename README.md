@@ -46,10 +46,10 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 `PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass
 -Sleepseconds 300 -Graphiteserver graphite1.it.acme.com -Group Vienna`
 
-### Some additional notes
+## Some additional notes
 - By design principles a PowerShell Script should not generate any output, unless an error orrurs. We follow this principle and if you want to see what the script is doing, add the `-Verbose` parameter to your call.
 - For the user who will access VCenter, read-only permissions are enough.
-- 
+
 ## To-Do List
 - [ ] Sending metrics to more than one Carbon host at a time.
 - [ ] Ability to read from non-clustered ESX implementations.
