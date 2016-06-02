@@ -15,7 +15,25 @@ Please check all the available parameters with Get-Help -full.
 ## How to use the script?
 ### Modes of Operation
 Usually you would like to collect statistics 24/7, having the most accurate numbers in Graphite/Grafana. Remember that collecting data from VSphere and feeding them into Graphite a) takes some time, depending on the size of your deployment, the performance of your VCenter Server, the network connection speed, etc. and b) takes some resources, CPU, memory, storage.
-Pulling data from VCenter is done by an API which is good, but not really ultra-fast. A collection of 1.000 VMs can take a few minutes, running the script every 10 seconds makes no sense. But this is not a big problem, even if you pull data just every 30 minutes, you will find statistics data much more granular in your graphs.
+
+Pulling data from VCenter is done by an API which is good, but not really ultra-fast. A collection of 1.000 VMs can take a few minutes, running the script every 10 seconds makes no sense. But this is not a big problem, even if you pull data just every 30 minutes, you will find statistics data much more granular in your graphs. If the values are collected, sending them to Carbon is just a matter of seconds or even less, even over slow WAN links.
+
+A good practice could be pulling data every 15 minutes for small/medium deployments (500 VMs or below) or 30 minutes for larger scale enterprises.
+
+There are two ways you can infinitely run the script:
+
+##### Use Windows Task Scheduler to call the script every n minutes
+This is the best practice. You call the script in your desired interval with Windows Task Scheduler or any other scheduling service of your choice. Calling it with the appropriate parameters will let the script run forever, even if something went wrong with PowerShell, PowerCLI or something else.
+
+To achive this, the script must "know" about the last time statistics were successfully collected from VCenter. If so, the script will try to pull all statistics data from the time of the last run up till now. To remember date and time of the last poll the script will save this information in an XML file. You have to specify the path and filename of this XLM file with the parameter `-FromLastPoll <Filename>`. Lets say you are pulling data from several different VCenter Servers, you have to specify a unique filename for each job.
+
+You also have to tell the script just to run once and then quit using the `-Iterations 1` parameter.
+
+
+
+
+
+You can specify the `-Iterations <Int32>` Parameter which tells the script to run <Int32> number of times
 
 
 ### Syntax
