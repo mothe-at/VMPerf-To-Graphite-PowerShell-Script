@@ -1,7 +1,6 @@
 #VMPerf-To-Graphite
 A comprehensive PowerShell Script to read Virtual Machine statistics from vCenter and send the results to Graphite/Grafana. It pulls Disk and CPU metrics from the "Realtime" statistics in VCenter, aggregates the data and sends them to carbon (which is the data-receiver for Graphite).
-
-Compared to other solutions found on the web, it is easy to setup and maintain.
+The script is easy to setup and maintain, should be running in one minute.
 
 ![](http://rettl.org/scripts/grafana1-full.png)
 
@@ -49,7 +48,11 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 
 ### Some additional notes
 - By design principles a PowerShell Script should not generate any output, unless an error orrurs. We follow this principle and if you want to see what the script is doing, add the `-Verbose` parameter to your call.
-
+- For the user who will access VCenter, read-only permissions are enough.
+- 
+## To-Do List
+- [ ] Sending metrics to more than one Carbon host at a time.
+- [ ] Ability to read from non-clustered ESX implementations.
 
 ## Syntax
 `VMPerf-To-Graphite.ps1 [[-Server] <String>] [[-User] <String>] [[-Password] <String>] [[-Protocol] <String>] [[-Datacenter] <String[]>] [[-Cluster] <String[]>] [[-Graphiteserver] <String>] [[-Graphiteserverport] <Int32>] [[-Group] <String>] [[-Sleepseconds] <Int32>] [[-Iterations] <Int32>] [[-FromLastPoll] <String>] [-Whatif] [[-EventLogLevel] <String>] [<CommonParameters>]`
