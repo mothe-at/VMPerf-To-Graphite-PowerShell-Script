@@ -35,16 +35,21 @@ Calling the script could look something like this:
 `PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass
 -Graphiteserver graphite1.it.acme.com -Iterations 1 -FromLastPoll Vienna_Poll.xml`
 
+It does not matter if you wait 10 minutes or 10 hours until you run the script the next time, it will gather all metrics starting at the time of the last succesfull poll. But remember that VCenter only stores real-time data for the last 24 hours by default!
 
-#######################
+##### Call the script and let it control the iterations and sleep-times
+This is the second way, you call the script once without the `-Iterations` parameter and it will run forever (or until you cancel it). Here you can specify the `-Sleepseconds <Int32>` parameter which controls the time it waits after each iteration.
 
+The script has extensive error handling but nevertheless it could happen that a PowerShell or PowerCLI process unexpetedly stopps or, even worse, hangs and does not return control back to the script. It could take hours until you realize that no data is collected for a certain amount of time and, murphy sais, you will for sure need this data desperately.
 
+To call the script to run infinitely, waiting 5 minutes between each iteration, call this:
 
+`PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass
+-Sleepseconds 300 -Graphiteserver graphite1.it.acme.com -Group Vienna`
 
-You can specify the `-Iterations <Int32>` Parameter which tells the script to run <Int32> number of times
+================
 
-
-### Syntax
+## Syntax
 `VMPerf-To-Graphite.ps1 [[-Server] <String>] [[-User] <String>] [[-Password] <String>] [[-Protocol] <String>] [[-Datacenter] <String[]>] [[-Cluster] <String[]>] [[-Graphiteserver] <String>] [[-Graphiteserverport] <Int32>] [[-Group] <String>] [[-Sleepseconds] <Int32>] [[-Iterations] <Int32>] [[-FromLastPoll] <String>] [-Whatif] [[-EventLogLevel] <String>] [<CommonParameters>]`
 
 ### Parameters and Description
@@ -203,32 +208,32 @@ You can specify the `-Iterations <Int32>` Parameter which tells the script to ru
 
 ```
 
-### Examples
-#### Example 1
+## Examples
+### Example 1
 `PS C:\>VMPerf-To-Graphite.ps1 -Verbose`
 
 Use default values from within this script and display the status output on the screen.
 
-#### Example 2
+### Example 2
 `PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass
 -Sleepseconds 300 -Graphiteserver graphite1.it.acme.com -Group Vienna`
 
 Read the counters from the VCenter server myvcenter.vienna.acme.com, send the metrics to graphite1.it.acme.com
 with a metrics path of "vmperf.Vienna." and then wait 5 minutes before the next iteration.
 
-#### Example 3
+### Example 3
 `PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass
 -Sleepseconds 300 -Graphiteserver graphite1.it.acme.com -Group Vienna -Cluster TESTDEV`
 
 Read the counters from Cluster TESTDEV in the VCenter server myvcenter.vienna.acme.com, send the metrics to
 graphite1.it.acme.com with a metrics path of "vmperf.Vienna." and then wait 5 minutes before the next iteration.
 
-#### Example 4
+### Example 4
 `PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Iterations 1 -WhatIf | Out-GridView`
 
 Run the cmdlet just once, but do not send the metrics to Graphite, instead open a window and display the results.
 
-#### Example 5
+### Example 5
 `PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass
 -Graphiteserver graphite1.it.acme.com -Iterations 1 -FromLastPoll Vienna_Poll.xml`
 
