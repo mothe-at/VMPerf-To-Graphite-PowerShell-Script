@@ -5,8 +5,6 @@ Please check all the available parameters with Get-Help -full.
 
 ![](http://rettl.org/scripts/grafana1-full.png)
 
-## Features
-Blabla
 ## Prerequisites
 - Make sure you have installed VMWare PowerCLI v5.8 or above on the machine where the script will run.
 - Check the [Version of PowerShell] (http://stackoverflow.com/questions/1825585/determine-installed-powershell-version) and update it to [PowerShell v4] (https://www.microsoft.com/en-US/download/details.aspx?id=40855) or above (POSH 2.x will cause problems, the Script will abort if the PowerShell Version is <4).
@@ -15,6 +13,11 @@ Blabla
 - Open a new PowerShell Window, read the documentation of the script carefully and discover all the various options and parameters.
 
 ## How to use the script?
+### Modes of Operation
+Usually you would like to collect statistics 24/7, having the most accurate numbers in Graphite/Grafana. Remember that collecting data from VSphere and feeding them into Graphite a) takes some time, depending on the size of your deployment, the performance of your VCenter Server, the network connection speed, etc. and b) takes some resources, CPU, memory, storage.
+Pulling data from VCenter is done by an API which is good, but not really ultra-fast. A collection of 1.000 VMs can take a few minutes, running the script every 10 seconds makes no sense. But this is not a big problem, even if you pull data just every 30 minutes, you will find statistics data much more granular in your graphs.
+
+
 ### Syntax
 `VMPerf-To-Graphite.ps1 [[-Server] <String>] [[-User] <String>] [[-Password] <String>] [[-Protocol] <String>] [[-Datacenter] <String[]>] [[-Cluster] <String[]>] [[-Graphiteserver] <String>] [[-Graphiteserverport] <Int32>] [[-Group] <String>] [[-Sleepseconds] <Int32>] [[-Iterations] <Int32>] [[-FromLastPoll] <String>] [-Whatif] [[-EventLogLevel] <String>] [<CommonParameters>]`
 
