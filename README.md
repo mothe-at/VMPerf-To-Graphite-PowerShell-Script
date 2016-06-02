@@ -10,7 +10,7 @@ Please check all the available parameters with Get-Help -full.
 - Check the [Version of PowerShell] (http://stackoverflow.com/questions/1825585/determine-installed-powershell-version) and update it to [PowerShell v4] (https://www.microsoft.com/en-US/download/details.aspx?id=40855) or above (POSH 2.x will cause problems, the Script will abort if the PowerShell Version is <4).
 - Check if the ["Statistics Level" in VCenter] (http://rettl.org/scripts/vcenter.png) for the shortest period is set to "Level 2" or higher.
 - Download the VMPerf-To-Graphite.ps1 script and save it on your server.
-- Open a new PowerShell Window, read the documentation of the script carefully and discover all the various options and parameters.
+- Open a new PowerShell Window, read the documentation of the script carefully and discover all the various options and parameters (call `PS C:\> Get-Help VMPerf-To-Graphite.ps1 -full`).
 
 ## How to use the script?
 ### Modes of Operation
