@@ -242,4 +242,9 @@ Run the cmdlet just once, but do not send the metrics to Graphite, instead open 
 Run the cmdlet just once. Write the date and time of the Poll to Vienna_Poll.xml. The next time the script runs,
 it will read the file and gather the metrics from VCenter starting at the last poll.
 
+## Licensing
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License] (http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+It is free-of-charge and it comes without any warranty, to the extent permitted by applicable law.
+
 
