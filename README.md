@@ -10,6 +10,7 @@ The script is easy to setup and maintain, should be running in one minute.
 - Check if the ["Statistics Level" in VCenter] (http://rettl.org/scripts/vcenter.png) for the shortest period is set to "Level 2" or higher.
 - Download the VMPerf-To-Graphite.ps1 script and save it on your server.
 - Open a new PowerShell Window, read the documentation of the script carefully and discover all the various options and parameters (call `PS C:\> Get-Help VMPerf-To-Graphite.ps1 -full`).
+- The script is not signed, if you receive an Execution Policy Error, just execute `PS C:\> Set-ExecutionPolicy Unrestricted` and it should work.
 
 ## How to use the script?
 ### Modes of Operation
