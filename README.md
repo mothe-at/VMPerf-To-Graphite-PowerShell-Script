@@ -106,7 +106,8 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	Accept wildcard characters? false
 	
 -Cluster <String[]>
-	Specifies the VMWare Clusters you want to receive data from. Default is to read all Clusters managed by VCenter server or, if -Datacenter is specified, all Clusters in this Datacenter.
+	Specifies the VMWare Clusters you want to receive data from. Default is to read all Clusters managed
+	by VCenter server or, if -Datacenter is specified, all Clusters in this Datacenter.
 	
 	Required?					false
 	Position?					6
@@ -115,7 +116,8 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	Accept wildcard characters? false
 	
 -Graphiteserver <String[]>
-	Specifies one or more (separated by comma) IP addresses or the DNS names of the Graphite servers which you want to connect to.
+	Specifies one or more (separated by comma) IP addresses or the DNS names of the Graphite servers
+	which you want to connect to.
 	You can also add the Portnumber to each Server like "grafana.acme.com:2003"
 	
 	Required?					false
@@ -125,7 +127,8 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	Accept wildcard characters? false
 	
 -Graphiteserverport <Int32>
-	Specifies the port on the Graphite server you want to use for the connection. Defaults to 2003. You can also add the portnumber to the servers hostname or IP address in the -Graphiteserver parameter.
+	Specifies the port on the Graphite server you want to use for the connection. Defaults to 2003.
+	You can also add the portnumber to the servers hostname or IP address in the -Graphiteserver parameter.
 	
 	Required?					false
 	Position?					8
@@ -134,7 +137,8 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	Accept wildcard characters? false
 	
 -Group <String>
-	Specifies the Group, an additional prefix for the metrics path in Graphite. The metrics path will be "vmperf.<Group>."
+	Specifies the Group, an additional prefix for the metrics path in Graphite.
+	The metrics path will be "vmperf.<Group>."
 	
 	Required?					false
 	Position?					9
@@ -152,9 +156,12 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	Accept wildcard characters? false
 	
 -FromLastPoll <String>
-	Optional path and name of an .xml file where the date and time of the last poll will be saved. If the file does not exist, it will be created and overwritten after each poll.
-	If this parameter is set, the script will try to receive all metrics from the VCenter Server starting at the date and time of the last poll up to the most recent data (Real-Time).
-	This is useful if you want to schedule the script externally (with Task Scheduler, for instance) and you want to use the "-Iterations 1" parameter.
+	Optional path and name of an .xml file where the date and time of the last poll will be saved. If the
+	file does not exist, it will be created and overwritten after each poll.
+	If this parameter is set, the script will try to receive all metrics from the VCenter Server starting
+	at the date and time of the last poll up to the most recent data (Real-Time).
+	This is useful if you want to schedule the script externally (with Task Scheduler, for instance) and you
+	want to use the "-Iterations 1" parameter.
 	But be careful, VCenter stores the Real-Time statistics just for a limited number of time (1 day per default).
 	
 	Required?					false
@@ -164,10 +171,14 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	Accept wildcard characters? false
 	
 -Sleepseconds <Int32>
-	Specifies the number of seconds to wait between iterations. The counter starts after the last statistics have been sent to Graphite. 
-	Note that VCenter is collecting its performance statistics every 20 seconds and saves an average of the collected counters. It makes no sense to specify a value below 20 seconds here. The script reads the so called 
-	"Realtime" counters from VCenter which will be kept there for one hour. So do not use anything above 3600 seconds.
-	The script requests all statistics data from VCenter server since the last time they were requested, regardless of how long the Sleepseconds parameter was set. You wont miss any data.
+	Specifies the number of seconds to wait between iterations. The counter starts after the last statistics
+	have been sent to Graphite. 
+	Note that VCenter is collecting its performance statistics every 20 seconds and saves an average of the
+	collected counters. It makes no sense to specify a value below 20 seconds here. The script reads the so
+	called 	"Realtime" counters from VCenter which will be kept there for one hour. So do not use anything
+	above 3600 seconds.
+	The script requests all statistics data from VCenter server since the last time they were requested,
+	regardless of how long the Sleepseconds parameter was set. You wont miss any data.
 	
 	Required?					false
 	Position?					12
@@ -176,7 +187,8 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	Accept wildcard characters? false
 	
 -Whatif [<SwitchParameter>]
-	Indicate that the cmdlet will process but will NOT send any metrics to Graphite, instead display a list of metrics that would be sent to Graphite.
+	Indicate that the cmdlet will process but will NOT send any metrics to Graphite, instead display a list
+	of metrics that would be sent to Graphite.
 	
 	Required?					false
 	Position?					named
@@ -185,8 +197,10 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	Accept wildcard characters? false
 	
 -EventLogLevel <String>
-	Set the Log-Level for writing events to the Windows Aplication log. Valid values are Error, Warning, Information, and None. The default value is Warning.
-	Note that if you like to use logging to the Windows Event Log, you have to run this script at least once with administrative privileges on this computer!
+	Set the Log-Level for writing events to the Windows Aplication log. Valid values are Error, Warning,
+	Information, and None. The default value is Warning.
+	Note that if you like to use logging to the Windows Event Log, you have to run this script at least once
+	with administrative privileges on this computer!
 	
 	Required?					false
 	Position?					13
@@ -195,8 +209,10 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	Accept wildcard characters? false
 	
 <CommonParameters>
-	This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVariable, WarningAction, WarningVariable,
-	OutBuffer, PipelineVariable, and OutVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216). 
+	This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVariable,
+	WarningAction, WarningVariable,
+	OutBuffer, PipelineVariable, and OutVariable. For more information, see about_CommonParameters
+	(http://go.microsoft.com/fwlink/?LinkID=113216). 
 ```
 
 ## Examples
