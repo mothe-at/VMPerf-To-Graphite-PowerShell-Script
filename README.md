@@ -35,7 +35,7 @@ Calling the script could look something like this:
 `PS C:\>VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass
 -Graphiteserver graphite1.it.acme.com -Iterations 1 -FromLastPoll Vienna_Poll.xml`
 
-It does not matter if you wait 10 minutes or 10 hours until you run the script the next time, it will gather all metrics starting at the time of the last succesfull poll. But remember that VCenter only stores real-time data for the last 24 hours by default!
+It does not matter if you wait 5 minutes or 30 minutes until you run the script the next time, it will gather all metrics starting at the time of the last succesfull poll. But remember that VCenter only stores real-time data for the last hour!
 
 #### Method 2: Call the script and let it control the iterations and sleep-times
 This is the second way, you call the script once without the `-Iterations` parameter and it will run forever (or until you cancel it). Here you can specify the `-Sleepseconds <Int32>` parameter which controls the time it waits after each iteration.
