@@ -96,7 +96,8 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	Accept wildcard characters? false
 	
 -Datacenter <String[]>
-	Specifies the VMWare Datacenters you want to receive data from. Default is to read all Clusters managed by VCenter server.
+	Specifies the VMWare Datacenters you want to receive data from. Default is to read all Clusters
+	managed by VCenter server.
 	
 	Required?					false
 	Position?					5
@@ -160,8 +161,8 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	If this parameter is set, the script will try to receive all metrics from the VCenter Server starting
 	at the date and time of the last poll up to the most recent data (Real-Time).
 	This is useful if you want to schedule the script externally (with Task Scheduler, for instance) and you
-	want to use the "-Iterations 1" parameter.
-	But be careful, VCenter stores the Real-Time statistics just for a limited number of time (1 day per default).
+	want to use the "-Iterations 1" parameter. But be careful, VCenter stores the Real-Time statistics just
+	for a limited number of time (1 hour per default).
 	
 	Required?					false
 	Position?					11
