@@ -52,7 +52,6 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 - For the user who will access VCenter, read-only permissions are enough.
 
 ## To-Do List
-- [ ] Sending metrics to more than one Carbon host at a time.
 - [ ] Ability to read from non-clustered ESX implementations.
 
 ## Syntax
