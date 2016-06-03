@@ -10,6 +10,12 @@
 VMPerf-To-Graphite.ps1 -Verbose
 Use default values from within this script and display the status output on the screen.
 .EXAMPLE
+VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass -Graphiteserver graphite1.it.acme.com -Iterations 1 -FromLastPoll Vienna_Poll.xml
+Run the cmdlet just once. Write the date and time of the Poll to Vienna_Poll.xml. The next time the script runs, it will read the file and gather the metrics from VCenter starting at the last poll.
+.EXAMPLE
+VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass -Graphiteserver graphite1.it.acme.com,graphdev.it.acme.com:62033 -Iterations 1 -FromLastPoll Vienna_Poll.xml
+Same as above but send the metrics to two servers, graphite1.it.acme.com at (default) port 2003 and graphdev.it.acme.com on port 62033.
+.EXAMPLE
 VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass -Sleepseconds 300 -Graphiteserver graphite1.it.acme.com -Group Vienna
 Read the counters from the VCenter server myvcenter.vienna.acme.com, send the metrics to graphite1.it.acme.com with a metrics path of "vmperf.Vienna." and then wait 5 minutes before the next iteration.
 .EXAMPLE
@@ -18,15 +24,13 @@ Read the counters from Cluster TESTDEV in the VCenter server myvcenter.vienna.ac
 .EXAMPLE
 VMPerf-To-Graphite.ps1 -Verbose -Iterations 1 -WhatIf | Out-GridView
 Run the cmdlet just once, but do not send the metrics to Graphite, instead open a window and display the results.
-.EXAMPLE
-VMPerf-To-Graphite.ps1 -Verbose -Server myvcenter.vienna.acme.com -User ACME\StatsReader -Password mypass -Graphiteserver graphite1.it.acme.com -Iterations 1 -FromLastPoll Vienna_Poll.xml
-Run the cmdlet just once. Write the date and time of the Poll to Vienna_Poll.xml. The next time the script runs, it will read the file and gather the metrics from VCenter starting at the last poll.
 .NOTES
 This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 It is free-of-charge and it comes without any warranty, to the extent permitted by applicable law.
 Matthias Rettl, 2016
-Script Version 1.4.0 (2016-May-20)
+Script Version 1.5.0 (2016-Jun-04)
 .LINK
+https://github.com/mothe-at/VMPerf-To-Graphite-PowerShell-Script
 http://rettl.org/scripts/
 http://creativecommons.org/licenses/by-nc-sa/4.0/
 #>
@@ -44,16 +48,14 @@ param(
     [string[]]$Datacenter = "*",
 	# Specifies the VMWare Clusters you want to receive data from. Default is to read all Clusters managed by VCenter server or, if -Datacenter is specified, all Clusters in this Datacenter.
     [string[]]$Cluster = "*",
-	# Specifies the IP address or the DNS name of the Graphite server to which you want to connect.
-	[string]$Graphiteserver = "your_default_grafana_server",
+	# Specifies one or more (separated by comma) IP addresses or the DNS names of the Graphite servers to which you want to connect.
+	# You can also add the Portnumber to each Server like "grafana.acme.com:2003"
+	[string[]]$Graphiteserver = "your_default_grafana_server",
 	# Specifies the port on the Graphite server you want to use for the connection. Defaults to 2003.
+	# You can also add the portnumber to the servers hostname or IP address in the -Graphiteserver parameter.
 	[ValidateRange(1024,65536)][int]$Graphiteserverport = 2003,
 	# Specifies the Group, an additional prefix for the metrics path in Graphite. The metrics path will be "vmperf.<Group>."
     [string]$Group = "Default",
-	# Specifies the number of seconds to wait between iterations. The counter starts after the last statistics have been sent to Graphite. 
-    # Note that VCenter is collecting its performance statistics every 20 seconds and saves an average of the collected counters. It makes no sense to specify a value below 20 seconds here. The script reads the so called "Realtime" counters from VCenter which will be kept there for one hour. So do not use anything above 3600 seconds.
-    # The script requests all statistics data from VCenter server since the last time they were requested, regardless of how long the Sleepseconds parameter was set. You wont miss any data.
-	[ValidateRange(0,3600)][int]$Sleepseconds = 60, 
 	# Specifies the number of iterations. 0 = indefinitely.
 	[ValidateRange(0,65536)][int]$Iterations = 0,
 	# Optional path and name of an .xml file where the date and time of the last poll will be saved.
@@ -62,6 +64,10 @@ param(
 	# This is useful if you want to schedule the script externally (with Task Scheduler, for instance) and you want to use the "-Iterations 1" parameter.
 	# But be careful, VCenter stores the Real-Time statistics just for a limited number of time (1 day per default).
 	[string]$FromLastPoll = "",
+	# Specifies the number of seconds to wait between iterations. The counter starts after the last statistics have been sent to Graphite. 
+    # Note that VCenter is collecting its performance statistics every 20 seconds and saves an average of the collected counters. It makes no sense to specify a value below 20 seconds here. The script reads the so called "Realtime" counters from VCenter which will be kept there for one hour. So do not use anything above 3600 seconds.
+    # The script requests all statistics data from VCenter server since the last time they were requested, regardless of how long the Sleepseconds parameter was set. You wont miss any data.
+	[ValidateRange(0,3600)][int]$Sleepseconds = 60, 
     # Indicate that the cmdlet will process but will NOT send any metrics to Graphite, instead display a list of metrics that would be sent to Graphite.
     [Switch]$Whatif,
     # Set the Log-Level for writing events to the Windows Aplication log. Valid values are Error, Warning, Information, and None. The default value is Warning.
@@ -85,10 +91,10 @@ if (($ell -ne 0) -AND ($sev -ge $ell)) {
     $myscriptfull = $MyInvocation.ScriptName
     $l = [Environment]::NewLine
 
-    New-EventLog –LogName Application –Source $myscriptname -ErrorAction SilentlyContinue
+    New-EventLog â€“LogName Application â€“Source $myscriptname -ErrorAction SilentlyContinue
 
-    $msg = $message + $l+$l + "Called by:" + $l + "$myscriptfull -Server $server -User $user -Password [**HIDDEN**] -Protocol $protocol -Datacenter $datacenter -Cluster $cluster -Group $Group -Graphiteserver $Graphiteserver -Graphiteserverport $Graphiteserverport -Sleepseconds $Sleepseconds -Iterations $Iterations -WhatIf:`$$Whatif -EventLogLevel $EventLogLevel"
-    Write-EventLog –LogName Application –Source $myscriptname –EntryType $severity –EventID $id –Message $msg -Category 0
+    $msg = $message + $l+$l + "Called by:" + $l + "$myscriptfull -Server $server -User $user -Password [**HIDDEN**] -Protocol $protocol -Datacenter $datacenter -Cluster $cluster -Group $Group -Graphiteserver $Graphiteserver -Graphiteserverport $Graphiteserverport -Sleepseconds $Sleepseconds -Iterations $Iterations -FromLastPoll $FromLastPoll -WhatIf:`$$Whatif -EventLogLevel $EventLogLevel"
+    Write-EventLog â€“LogName Application â€“Source $myscriptname â€“EntryType $severity â€“EventID $id â€“Message $msg -Category 0
 
 }
 
@@ -122,38 +128,71 @@ try {
 # ---------------------------------------
 function sendtographite ($metrics)
 {
-do {
-    $iserr = $false
-    Try
-    {
-        $socket = new-object system.net.sockets.tcpclient
-        
-        $socket.connect($graphiteserver, $graphiteserverport)
-        
-        $stream = $socket.getstream()
-        $writer = new-object system.io.streamwriter($stream)
-        
-        foreach($i in 0..($metrics.count-1)){
-          $writer.writeline($metrics[$i])
-        }
-        
-        $writer.flush()
-        $writer.close()
-        $stream.close()
-        $socket.close()
-    }
-    Catch
-    {
-        $IsErr = $true
-        $ErrorMessage = $_.Exception.Message
-        $FailedItem = $_.Exception.ItemName
-    	$msg = "Connection to $graphiteserver on port $graphiteserverport failed with $ErrorMessage! Will retry in 10 seconds"
-       	Write-Warning "$(Get-Date -format G) $msg"
-        Write-To-Windows-EventLog "Warning" 2007 $msg
-    	Start-Sleep -s 10
-    }
+$maxretries = 10	# Maximum number of retries to connect to a Graphite server. Only applicable if multiple servers are specified. With only 1 server it will try forever.
+$aservers = $graphiteserver -split ' '
 
-} while ($IsErr)
+foreach($s in 0..($aservers.count-1)){
+
+	$cserver = $aservers[$s]
+	if ($cserver.contains(":")) 
+		{
+			$atmp = $cserver -split ':'
+			$cserver = $atmp[0]
+			$cport = $atmp[1]
+		}
+		else
+		{
+			$cport = $graphiteserverport
+		}
+    
+	$msg = "Sending $scount metrics for $vcount VMs of iteration # $iteration to Graphite server $cserver`:$cport"
+    Write-Verbose "$(Get-Date -format G) $msg"
+	Write-To-Windows-EventLog "Information" 1005 $msg
+	$trycount = 1
+	do {
+		$iserr = $false
+		Try
+		{
+			$socket = new-object system.net.sockets.tcpclient
+			
+			$socket.connect($cserver, $cport)
+			
+			$stream = $socket.getstream()
+			$writer = new-object system.io.streamwriter($stream)
+			
+			foreach($i in 0..($metrics.count-1)){
+			$writer.writeline($metrics[$i])
+			}
+			
+			$writer.flush()
+			$writer.close()
+			$stream.close()
+			$socket.close()
+		}
+		Catch
+		{
+			$IsErr = $true
+			$ErrorMessage = $_.Exception.Message
+			$FailedItem = $_.Exception.ItemName
+			$msg = "Connection to $cserver`:$cport failed with $ErrorMessage! Will retry in 10 seconds"
+			Write-Warning "$(Get-Date -format G) $msg"
+			Write-To-Windows-EventLog "Warning" 2007 $msg
+			Start-Sleep -s 10
+			
+			if (($trycount -ge $maxretries) -and ($aservers.count -gt 1)) {
+				# Giving up this Server, it does not work, lets try the other one(s)
+				$msg = "Giving up connection to $cserver`:$cport after $trycount failed attempts"
+				Write-Error "$(Get-Date -format G) $msg"
+				Write-To-Windows-EventLog "Error" 2007 $msg
+				$IsErr = $false
+			}
+			
+			$trycount++
+			
+		}
+	
+	} while ($IsErr)
+}
 
 }
 
@@ -188,6 +227,7 @@ return $vcc
 }
 
 # -----------------------------------------------------------------------------------------------------------------------------------------
+# -- MAIN PROCEDURE -----------------------------------------------------------------------------------------------------------------------
 # -----------------------------------------------------------------------------------------------------------------------------------------
 
 if (!$Group.EndsWith(".")) {$Group = $Group+"."}
@@ -232,9 +272,20 @@ if ( !(Get-Module -Name VMware.VimAutomation.Core -ErrorAction SilentlyContinue)
 
 }
 
-# Try to resolve VCenter and Graphite Hostname and Quit script if unsuccessful.
+# Try to resolve VCenter and Graphite Hostname(s) and Quit script if unsuccessful.
 checkiporhostname "VCenter server" $Server True
-checkiporhostname "Graphite" $Graphiteserver True
+
+$aservers = $graphiteserver -split ' '
+foreach($s in 0..($aservers.count-1)){
+
+	$cserver = $aservers[$s]
+	if ($cserver.contains(":")) 
+		{
+			$atmp = $cserver -split ':'
+			$cserver = $atmp[0]
+		}
+	checkiporhostname "Graphite" $cserver True
+}    
 
 # First attempt to connect to the VCenter server. Stop immediately if the connection fails.
 $vcc = connectviserver True
@@ -265,6 +316,7 @@ $timespan = New-TimeSpan -Seconds $sleepseconds
 $starttime = (Get-Date)-$timespan
 
 if ($FromLastPoll -ne "") {
+	$FromLastPoll = [System.IO.Path]::GetFullPath($FromLastPoll)
 	if (Test-Path $FromLastPoll) {
 		Write-Verbose "Reading last polling time from $FromLastPoll"
 		$starttime = Import-Clixml $FromLastPoll
@@ -401,10 +453,6 @@ if ($FromLastPoll -ne "") {
 	    }
 
 	    $scount = $results.count
-	    
-	    $msg = "Sending $scount metrics for $vcount VMs of iteration # $iteration to Graphite server $graphiteserver"
-	    Write-Verbose "$(Get-Date -format G) $msg"
-        Write-To-Windows-EventLog "Information" 1005 $msg
 	    
         if (!$Whatif)
             {
