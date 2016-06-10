@@ -1,21 +1,296 @@
 {
-  "id": 28,
-  "title": "VMPerf-Sample-Dashboard",
-  "originalTitle": "VMPerf-Sample-Dashboard",
+  "title": "VMPerf Virtual Machines",
+  "originalTitle": "VMPerf Virtual Machines",
   "tags": [
-    "MatthiasRettl"
+    "MatthiasR",
+    "VMPerf"
   ],
   "style": "dark",
   "timezone": "browser",
   "editable": true,
   "hideControls": false,
-  "sharedCrosshair": false,
+  "sharedCrosshair": true,
   "rows": [
     {
       "collapse": true,
       "editable": true,
-      "height": "250px",
+      "height": "350px",
       "panels": [
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "height": "200",
+          "id": 29,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 2,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 0,
+              "pattern": "/.*/",
+              "thresholds": [
+                "1000",
+                "2000"
+              ],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestCurrent(vmperf.$Group.$VM.TotalIOPS, $TopResources), 2)"
+            }
+          ],
+          "title": "Current IOPS",
+          "transform": "timeseries_aggregations",
+          "type": "table"
+        },
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "height": "200",
+          "id": 30,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 2,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 0,
+              "pattern": "/.*/",
+              "thresholds": [
+                "10000",
+                "20000"
+              ],
+              "type": "number",
+              "unit": "KBs"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestCurrent(vmperf.$Group.$VM.TotalKBps, $TopResources), 2)"
+            }
+          ],
+          "title": "Current Throughput",
+          "transform": "timeseries_aggregations",
+          "type": "table"
+        },
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "height": "200",
+          "id": 31,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 2,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 0,
+              "pattern": "/.*/",
+              "thresholds": [
+                "60",
+                "80"
+              ],
+              "type": "number",
+              "unit": "percent"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestCurrent(vmperf.$Group.$VM.CPU, $TopResources), 2)"
+            }
+          ],
+          "title": "Current CPU",
+          "transform": "timeseries_aggregations",
+          "type": "table"
+        },
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "height": "200",
+          "id": 32,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 3,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 1,
+              "pattern": "/.*/",
+              "thresholds": [
+                "15",
+                "30"
+              ],
+              "type": "number",
+              "unit": "ms"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestCurrent(vmperf.$Group.$VM.ReadLatency, $TopResources), 2)"
+            }
+          ],
+          "title": "Current Read Latency",
+          "transform": "timeseries_aggregations",
+          "type": "table"
+        },
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "height": "200",
+          "id": 33,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 3,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "VM",
+              "type": "string"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 1,
+              "pattern": "/.*/",
+              "thresholds": [
+                "15",
+                "30"
+              ],
+              "type": "number",
+              "unit": "ms"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestCurrent(vmperf.$Group.$VM.WriteLatency, $TopResources), 2)"
+            }
+          ],
+          "title": "Current Write Latency",
+          "transform": "timeseries_aggregations",
+          "type": "table"
+        },
         {
           "aliasColors": {},
           "bars": false,
@@ -24,18 +299,12 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "height": "300",
+          "height": "",
           "id": 24,
           "legend": {
             "alignAsTable": true,
@@ -43,7 +312,7 @@
             "current": true,
             "max": true,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
             "sort": "current",
             "sortDesc": true,
@@ -59,7 +328,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -72,15 +341,29 @@
           "timeShift": null,
           "title": "TOP $TopResources VM Current IOPS",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -92,18 +375,12 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "height": "300",
+          "height": "",
           "id": 25,
           "legend": {
             "alignAsTable": true,
@@ -111,7 +388,7 @@
             "current": true,
             "max": true,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
             "sort": "current",
             "sortDesc": true,
@@ -127,7 +404,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -140,15 +417,29 @@
           "timeShift": null,
           "title": "TOP $TopResources VM Current Throughput",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "kbytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "kbytes",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -159,18 +450,12 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": 100,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "height": "300",
+          "height": "",
           "id": 26,
           "legend": {
             "alignAsTable": true,
@@ -178,7 +463,7 @@
             "current": true,
             "max": true,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
             "sort": "current",
             "sortDesc": true,
@@ -194,7 +479,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -207,15 +492,29 @@
           "timeShift": null,
           "title": "TOP $TopResources VM Current CPU",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "percent",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": 100,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -227,19 +526,13 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": 20,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": 50,
             "threshold2Color": "rgba(234, 112, 112, 0.22)",
             "thresholdLine": false
           },
-          "height": "300",
+          "height": "",
           "id": 27,
           "legend": {
             "alignAsTable": true,
@@ -247,7 +540,7 @@
             "current": true,
             "max": true,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
             "sort": "max",
             "sortDesc": true,
@@ -276,15 +569,29 @@
           "timeShift": null,
           "title": "TOP $TopResources VM Current Read Latencies",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ms",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -296,19 +603,13 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": 20,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": 50,
             "threshold2Color": "rgba(234, 112, 112, 0.22)",
             "thresholdLine": false
           },
-          "height": "300",
+          "height": "",
           "id": 28,
           "legend": {
             "alignAsTable": true,
@@ -316,7 +617,7 @@
             "current": true,
             "max": true,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
             "sort": "current",
             "sortDesc": true,
@@ -345,16 +646,30 @@
           "timeShift": null,
           "title": "TOP $TopResources VM Current Write Latencies",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "transparent": false,
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ms",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -364,8 +679,283 @@
     {
       "collapse": true,
       "editable": true,
-      "height": "250px",
+      "height": "350px",
       "panels": [
+        {
+          "columns": [
+            {
+              "text": "Max",
+              "value": "max"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "id": 29,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 2,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 0,
+              "pattern": "/.*/",
+              "thresholds": [
+                "1000",
+                "2000"
+              ],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestMax(vmperf.$Group.$VM.TotalIOPS, $TopResources), 2)"
+            }
+          ],
+          "title": "Maximum IOPS",
+          "transform": "timeseries_aggregations",
+          "type": "table",
+          "height": "200"
+        },
+        {
+          "columns": [
+            {
+              "text": "Max",
+              "value": "max"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "id": 30,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 2,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 0,
+              "pattern": "/.*/",
+              "thresholds": [
+                "10000",
+                "20000"
+              ],
+              "type": "number",
+              "unit": "KBs"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestMax(vmperf.$Group.$VM.TotalKBps, $TopResources), 2)"
+            }
+          ],
+          "title": "Maximum Throughput",
+          "transform": "timeseries_aggregations",
+          "type": "table",
+          "height": "200"
+        },
+        {
+          "columns": [
+            {
+              "text": "Max",
+              "value": "max"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "id": 31,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 2,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 0,
+              "pattern": "/.*/",
+              "thresholds": [
+                "60",
+                "80"
+              ],
+              "type": "number",
+              "unit": "percent"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestMax(vmperf.$Group.$VM.CPU, $TopResources), 2)"
+            }
+          ],
+          "title": "Maximum CPU",
+          "transform": "timeseries_aggregations",
+          "type": "table",
+          "height": "200"
+        },
+        {
+          "columns": [
+            {
+              "text": "Max",
+              "value": "max"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "id": 32,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 3,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 1,
+              "pattern": "/.*/",
+              "thresholds": [
+                "15",
+                "30"
+              ],
+              "type": "number",
+              "unit": "ms"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestMax(vmperf.$Group.$VM.ReadLatency, $TopResources), 2)"
+            }
+          ],
+          "title": "Maximum Read Latency",
+          "transform": "timeseries_aggregations",
+          "type": "table",
+          "height": "200"
+        },
+        {
+          "columns": [
+            {
+              "text": "Max",
+              "value": "max"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "id": 33,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 3,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "VM",
+              "type": "string"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 1,
+              "pattern": "/.*/",
+              "thresholds": [
+                "15",
+                "30"
+              ],
+              "type": "number",
+              "unit": "ms"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestMax(vmperf.$Group.$VM.WriteLatency, $TopResources), 2)"
+            }
+          ],
+          "title": "Maximum Write Latency",
+          "transform": "timeseries_aggregations",
+          "type": "table",
+          "height": "200"
+        },
         {
           "aliasColors": {},
           "bars": false,
@@ -374,17 +964,12 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
+          "height": "",
           "id": 24,
           "legend": {
             "alignAsTable": true,
@@ -392,7 +977,7 @@
             "current": true,
             "max": true,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
             "sort": "max",
             "sortDesc": true,
@@ -408,7 +993,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -421,15 +1006,29 @@
           "timeShift": null,
           "title": "TOP $TopResources VM Maximum IOPS",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -441,17 +1040,12 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
+          "height": "",
           "id": 25,
           "legend": {
             "alignAsTable": true,
@@ -459,7 +1053,7 @@
             "current": true,
             "max": true,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
             "sort": "max",
             "sortDesc": true,
@@ -475,7 +1069,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -488,15 +1082,29 @@
           "timeShift": null,
           "title": "TOP $TopResources VM Maximum Throughput",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "kbytes",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "kbytes",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -507,18 +1115,12 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": 100,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "height": "200",
+          "height": "",
           "id": 26,
           "legend": {
             "alignAsTable": true,
@@ -526,7 +1128,7 @@
             "current": true,
             "max": true,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
             "sort": "max",
             "sortDesc": true,
@@ -542,7 +1144,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -555,15 +1157,29 @@
           "timeShift": null,
           "title": "TOP $TopResources VM Maximum CPU",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "percent",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": 100,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -575,19 +1191,13 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": 20,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": 50,
             "threshold2Color": "rgba(234, 112, 112, 0.22)",
             "thresholdLine": false
           },
-          "height": "200",
+          "height": "",
           "id": 27,
           "legend": {
             "alignAsTable": true,
@@ -595,9 +1205,9 @@
             "current": true,
             "max": true,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
-            "sort": "avg",
+            "sort": "max",
             "sortDesc": true,
             "total": false,
             "values": true
@@ -624,15 +1234,29 @@
           "timeShift": null,
           "title": "TOP $TopResources VM Maximum Read Latencies",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ms",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -644,19 +1268,13 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": 20,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": 50,
             "threshold2Color": "rgba(234, 112, 112, 0.22)",
             "thresholdLine": false
           },
-          "height": "200",
+          "height": "",
           "id": 28,
           "legend": {
             "alignAsTable": true,
@@ -664,7 +1282,7 @@
             "current": true,
             "max": true,
             "min": false,
-            "rightSide": true,
+            "rightSide": false,
             "show": true,
             "sort": "max",
             "sortDesc": true,
@@ -693,21 +1311,700 @@
           "timeShift": null,
           "title": "TOP $TopResources VM Maximum Write Latencies",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "transparent": false,
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "ms",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
       "showTitle": true,
       "title": "Virtual Machines by Maximum Values"
+    },
+    {
+      "collapse": true,
+      "editable": true,
+      "height": "350px",
+      "panels": [
+        {
+          "columns": [
+            {
+              "text": "Average",
+              "value": "avg"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "id": 29,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 2,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 0,
+              "pattern": "/.*/",
+              "thresholds": [
+                "1000",
+                "2000"
+              ],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(vmperf.$Group.$VM.TotalIOPS, $TopResources), 2)"
+            }
+          ],
+          "title": "Average IOPS",
+          "transform": "timeseries_aggregations",
+          "type": "table",
+          "height": "200"
+        },
+        {
+          "columns": [
+            {
+              "text": "Average",
+              "value": "avg"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "id": 30,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 2,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 0,
+              "pattern": "/.*/",
+              "thresholds": [
+                "10000",
+                "20000"
+              ],
+              "type": "number",
+              "unit": "KBs"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(vmperf.$Group.$VM.TotalKBps, $TopResources), 2)"
+            }
+          ],
+          "title": "Average Throughput",
+          "transform": "timeseries_aggregations",
+          "type": "table",
+          "height": "200"
+        },
+        {
+          "columns": [
+            {
+              "text": "Average",
+              "value": "avg"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "id": 31,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 2,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 0,
+              "pattern": "/.*/",
+              "thresholds": [
+                "60",
+                "80"
+              ],
+              "type": "number",
+              "unit": "percent"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(vmperf.$Group.$VM.CPU, $TopResources), 2)"
+            }
+          ],
+          "title": "Average CPU",
+          "transform": "timeseries_aggregations",
+          "type": "table",
+          "height": "200"
+        },
+        {
+          "columns": [
+            {
+              "text": "Average",
+              "value": "avg"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "id": 32,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 3,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 1,
+              "pattern": "/.*/",
+              "thresholds": [
+                "15",
+                "30"
+              ],
+              "type": "number",
+              "unit": "ms"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(vmperf.$Group.$VM.ReadLatency, $TopResources), 2)"
+            }
+          ],
+          "title": "Average Read Latency",
+          "transform": "timeseries_aggregations",
+          "type": "table",
+          "height": "200"
+        },
+        {
+          "columns": [
+            {
+              "text": "Average",
+              "value": "avg"
+            }
+          ],
+          "editable": true,
+          "error": false,
+          "fontSize": "90%",
+          "id": 33,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": false,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 3,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "VM",
+              "type": "string"
+            },
+            {
+              "colorMode": "row",
+              "colors": [
+                "rgba(50, 172, 45, 0.78)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.49)"
+              ],
+              "decimals": 1,
+              "pattern": "/.*/",
+              "thresholds": [
+                "15",
+                "30"
+              ],
+              "type": "number",
+              "unit": "ms"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(vmperf.$Group.$VM.WriteLatency, $TopResources), 2)"
+            }
+          ],
+          "title": "Average Write Latency",
+          "transform": "timeseries_aggregations",
+          "type": "table",
+          "height": "200"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "height": "",
+          "id": 24,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(vmperf.$Group.$VM.TotalIOPS, $TopResources), 2)"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "TOP $TopResources VM Average IOPS",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": 0,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "height": "",
+          "id": 25,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(vmperf.$Group.$VM.TotalKBps, $TopResources), 2)"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "TOP $TopResources VM Average Throughput",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "kbytes",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "height": "",
+          "id": 26,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(vmperf.$Group.$VM.CPU, $TopResources), 2)"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "TOP $TopResources VM Average CPU",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": 100,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": 20,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": 50,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "thresholdLine": false
+          },
+          "height": "",
+          "id": 27,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(vmperf.$Group.$VM.ReadLatency, $TopResources), 2)"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "TOP $TopResources VM Average Read Latencies",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": 20,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": 50,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "thresholdLine": false
+          },
+          "height": "",
+          "id": 28,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(vmperf.$Group.$VM.WriteLatency, $TopResources), 2)"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "TOP $TopResources VM Average Write Latencies",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "transparent": false,
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "showTitle": true,
+      "title": "Virtual Machines by Average Values"
     }
   ],
   "time": {
@@ -750,1114 +2047,35 @@
     "enable": true,
     "list": [
       {
-        "allFormat": "glob",
+        "allFormat": "wildcard",
         "current": {
           "text": "All",
-          "value": "{Munich,Wien}"
+          "value": "$__all"
         },
         "datasource": null,
+        "hide": 0,
         "includeAll": true,
         "name": "Group",
-        "options": [
-          {
-            "text": "All",
-            "value": "{Munich,Wien}",
-            "selected": true
-          },
-          {
-            "text": "Munich",
-            "value": "Munich",
-            "selected": false
-          },
-          {
-            "text": "Wien",
-            "value": "Wien",
-            "selected": false
-          }
-        ],
         "query": "vmperf.*",
-        "refresh": true,
+        "refresh": 1,
         "refresh_on_load": false,
-        "type": "query",
         "regex": "",
-        "multi": true,
-        "multiFormat": "glob"
+        "type": "query"
       },
       {
         "allFormat": "wildcard",
         "current": {
           "text": "All",
-          "value": "*",
-          "tags": []
+          "value": "$__all"
         },
         "datasource": null,
+        "hide": 0,
         "includeAll": true,
         "multi": true,
         "multiFormat": "glob",
         "name": "VM",
-        "options": [
-          {
-            "text": "All",
-            "value": "*",
-            "selected": true
-          },
-          {
-            "text": "CentOS-Template",
-            "value": "CentOS-Template",
-            "selected": false
-          },
-          {
-            "text": "DC1-ADM1",
-            "value": "DC1-ADM1",
-            "selected": false
-          },
-          {
-            "text": "DC1-G1",
-            "value": "DC1-G1",
-            "selected": false
-          },
-          {
-            "text": "DC1-NTP",
-            "value": "DC1-NTP",
-            "selected": false
-          },
-          {
-            "text": "DC1-S1",
-            "value": "DC1-S1",
-            "selected": false
-          },
-          {
-            "text": "DC1-S2",
-            "value": "DC1-S2",
-            "selected": false
-          },
-          {
-            "text": "DC1-S3",
-            "value": "DC1-S3",
-            "selected": false
-          },
-          {
-            "text": "Data_ONTAP-v_Installer",
-            "value": "Data_ONTAP-v_Installer",
-            "selected": false
-          },
-          {
-            "text": "DriverSystem1",
-            "value": "DriverSystem1",
-            "selected": false
-          },
-          {
-            "text": "DriverSystem1_Ubuntu15_04",
-            "value": "DriverSystem1_Ubuntu15_04",
-            "selected": false
-          },
-          {
-            "text": "DriverSystem2",
-            "value": "DriverSystem2",
-            "selected": false
-          },
-          {
-            "text": "DriverSystem2_Ubuntu15_04",
-            "value": "DriverSystem2_Ubuntu15_04",
-            "selected": false
-          },
-          {
-            "text": "DriverSystem3",
-            "value": "DriverSystem3",
-            "selected": false
-          },
-          {
-            "text": "DriverSystem3_Ubuntu15_04",
-            "value": "DriverSystem3_Ubuntu15_04",
-            "selected": false
-          },
-          {
-            "text": "DriverSystem4_Ubuntu15_04",
-            "value": "DriverSystem4_Ubuntu15_04",
-            "selected": false
-          },
-          {
-            "text": "DriverSystem5",
-            "value": "DriverSystem5",
-            "selected": false
-          },
-          {
-            "text": "DriverSystem5_Ubuntu15_04",
-            "value": "DriverSystem5_Ubuntu15_04",
-            "selected": false
-          },
-          {
-            "text": "GraphiteVA",
-            "value": "GraphiteVA",
-            "selected": false
-          },
-          {
-            "text": "GraphiteVA-64",
-            "value": "GraphiteVA-64",
-            "selected": false
-          },
-          {
-            "text": "GraphiteVA64_AUT_OVA_Template",
-            "value": "GraphiteVA64_AUT_OVA_Template",
-            "selected": false
-          },
-          {
-            "text": "GraphiteVA64_AUT_OVA_Test1",
-            "value": "GraphiteVA64_AUT_OVA_Test1",
-            "selected": false
-          },
-          {
-            "text": "GraphiteVA64_AUT_OVA_Test2",
-            "value": "GraphiteVA64_AUT_OVA_Test2",
-            "selected": false
-          },
-          {
-            "text": "GraphiteVA64b-AUT-OVA-Template",
-            "value": "GraphiteVA64b-AUT-OVA-Template",
-            "selected": false
-          },
-          {
-            "text": "GraphiteVA64b-AUT-OVA-Test",
-            "value": "GraphiteVA64b-AUT-OVA-Test",
-            "selected": false
-          },
-          {
-            "text": "HHDELL",
-            "value": "HHDELL",
-            "selected": false
-          },
-          {
-            "text": "JP2016TP3",
-            "value": "JP2016TP3",
-            "selected": false
-          },
-          {
-            "text": "MCC_Tiebreaker_RHEL6_5",
-            "value": "MCC_Tiebreaker_RHEL6_5",
-            "selected": false
-          },
-          {
-            "text": "MCC_Tiebreaker_RHEL6_5_Clone",
-            "value": "MCC_Tiebreaker_RHEL6_5_Clone",
-            "selected": false
-          },
-          {
-            "text": "OC-Insight1",
-            "value": "OC-Insight1",
-            "selected": false
-          },
-          {
-            "text": "OC-Insight2",
-            "value": "OC-Insight2",
-            "selected": false
-          },
-          {
-            "text": "PB-mkris-dev1211_2522-temp",
-            "value": "PB-mkris-dev1211_2522-temp",
-            "selected": false
-          },
-          {
-            "text": "SG-WIN",
-            "value": "SG-WIN",
-            "selected": false
-          },
-          {
-            "text": "SQL2012",
-            "value": "SQL2012",
-            "selected": false
-          },
-          {
-            "text": "SnapCenter",
-            "value": "SnapCenter",
-            "selected": false
-          },
-          {
-            "text": "SnapProtectServer",
-            "value": "SnapProtectServer",
-            "selected": false
-          },
-          {
-            "text": "TargetSystem1_SLES11SP3",
-            "value": "TargetSystem1_SLES11SP3",
-            "selected": false
-          },
-          {
-            "text": "TargetSystem2_SLES11SP3",
-            "value": "TargetSystem2_SLES11SP3",
-            "selected": false
-          },
-          {
-            "text": "TargetSystem3_SLES11SP3",
-            "value": "TargetSystem3_SLES11SP3",
-            "selected": false
-          },
-          {
-            "text": "TargetSystem4_SLES11SP3",
-            "value": "TargetSystem4_SLES11SP3",
-            "selected": false
-          },
-          {
-            "text": "TargetSystem5_SLES11SP3",
-            "value": "TargetSystem5_SLES11SP3",
-            "selected": false
-          },
-          {
-            "text": "TemplateCentOS65",
-            "value": "TemplateCentOS65",
-            "selected": false
-          },
-          {
-            "text": "VCSA1",
-            "value": "VCSA1",
-            "selected": false
-          },
-          {
-            "text": "VIEDC01",
-            "value": "VIEDC01",
-            "selected": false
-          },
-          {
-            "text": "VIEDC02",
-            "value": "VIEDC02",
-            "selected": false
-          },
-          {
-            "text": "VM-MS-LIN1",
-            "value": "VM-MS-LIN1",
-            "selected": false
-          },
-          {
-            "text": "VM-MS-LIN2",
-            "value": "VM-MS-LIN2",
-            "selected": false
-          },
-          {
-            "text": "Veeam",
-            "value": "Veeam",
-            "selected": false
-          },
-          {
-            "text": "W2008R2SP1_Leo",
-            "value": "W2008R2SP1_Leo",
-            "selected": false
-          },
-          {
-            "text": "akapila-UbuntuOS",
-            "value": "akapila-UbuntuOS",
-            "selected": false
-          },
-          {
-            "text": "akapila-docker",
-            "value": "akapila-docker",
-            "selected": false
-          },
-          {
-            "text": "akapila-kubernetes",
-            "value": "akapila-kubernetes",
-            "selected": false
-          },
-          {
-            "text": "akapila-openshift",
-            "value": "akapila-openshift",
-            "selected": false
-          },
-          {
-            "text": "akapila-puppet",
-            "value": "akapila-puppet",
-            "selected": false
-          },
-          {
-            "text": "ar_W2k8R2",
-            "value": "ar_W2k8R2",
-            "selected": false
-          },
-          {
-            "text": "balance2",
-            "value": "balance2",
-            "selected": false
-          },
-          {
-            "text": "balanceproxy1",
-            "value": "balanceproxy1",
-            "selected": false
-          },
-          {
-            "text": "cawin1",
-            "value": "cawin1",
-            "selected": false
-          },
-          {
-            "text": "cbc-ostack-ctrl-01",
-            "value": "cbc-ostack-ctrl-01",
-            "selected": false
-          },
-          {
-            "text": "cbc-ostack-net-01",
-            "value": "cbc-ostack-net-01",
-            "selected": false
-          },
-          {
-            "text": "cbc-snap01",
-            "value": "cbc-snap01",
-            "selected": false
-          },
-          {
-            "text": "cbc-snapprotadmin",
-            "value": "cbc-snapprotadmin",
-            "selected": false
-          },
-          {
-            "text": "cbc-vcops01",
-            "value": "cbc-vcops01",
-            "selected": false
-          },
-          {
-            "text": "chott-linux",
-            "value": "chott-linux",
-            "selected": false
-          },
-          {
-            "text": "csiebler-wfa",
-            "value": "csiebler-wfa",
-            "selected": false
-          },
-          {
-            "text": "csiebler_wfa_demo",
-            "value": "csiebler_wfa_demo",
-            "selected": false
-          },
-          {
-            "text": "dfm1",
-            "value": "dfm1",
-            "selected": false
-          },
-          {
-            "text": "dfmcdot1",
-            "value": "dfmcdot1",
-            "selected": false
-          },
-          {
-            "text": "dfmcdot2",
-            "value": "dfmcdot2",
-            "selected": false
-          },
-          {
-            "text": "docker",
-            "value": "docker",
-            "selected": false
-          },
-          {
-            "text": "docker-centos",
-            "value": "docker-centos",
-            "selected": false
-          },
-          {
-            "text": "e-ef-mgmt",
-            "value": "e-ef-mgmt",
-            "selected": false
-          },
-          {
-            "text": "ebwin1",
-            "value": "ebwin1",
-            "selected": false
-          },
-          {
-            "text": "enw2012_01",
-            "value": "enw2012_01",
-            "selected": false
-          },
-          {
-            "text": "enw2k8",
-            "value": "enw2k8",
-            "selected": false
-          },
-          {
-            "text": "enwin7",
-            "value": "enwin7",
-            "selected": false
-          },
-          {
-            "text": "ff-oc1",
-            "value": "ff-oc1",
-            "selected": false
-          },
-          {
-            "text": "ff_w2k8r2",
-            "value": "ff_w2k8r2",
-            "selected": false
-          },
-          {
-            "text": "fpirner_GraphiteVA",
-            "value": "fpirner_GraphiteVA",
-            "selected": false
-          },
-          {
-            "text": "fpirner_PRTG-Demo",
-            "value": "fpirner_PRTG-Demo",
-            "selected": false
-          },
-          {
-            "text": "ghw2012",
-            "value": "ghw2012",
-            "selected": false
-          },
-          {
-            "text": "ghw2k8",
-            "value": "ghw2k8",
-            "selected": false
-          },
-          {
-            "text": "ghw2k8r2",
-            "value": "ghw2k8r2",
-            "selected": false
-          },
-          {
-            "text": "ghwfa",
-            "value": "ghwfa",
-            "selected": false
-          },
-          {
-            "text": "gmey-vm11_Windows7",
-            "value": "gmey-vm11_Windows7",
-            "selected": false
-          },
-          {
-            "text": "gmey-vm13_Demo_Desktop",
-            "value": "gmey-vm13_Demo_Desktop",
-            "selected": false
-          },
-          {
-            "text": "gmey-vm1_RHEL_6_3",
-            "value": "gmey-vm1_RHEL_6_3",
-            "selected": false
-          },
-          {
-            "text": "gmey-vm3_Ubuntu_14_10",
-            "value": "gmey-vm3_Ubuntu_14_10",
-            "selected": false
-          },
-          {
-            "text": "gmey-vm3_Ubuntu_15_04",
-            "value": "gmey-vm3_Ubuntu_15_04",
-            "selected": false
-          },
-          {
-            "text": "grafana",
-            "value": "grafana",
-            "selected": false
-          },
-          {
-            "text": "grafana2",
-            "value": "grafana2",
-            "selected": false
-          },
-          {
-            "text": "grafana3",
-            "value": "grafana3",
-            "selected": false
-          },
-          {
-            "text": "graphite-va",
-            "value": "graphite-va",
-            "selected": false
-          },
-          {
-            "text": "gw-dpma",
-            "value": "gw-dpma",
-            "selected": false
-          },
-          {
-            "text": "gw-dpma-dfm",
-            "value": "gw-dpma-dfm",
-            "selected": false
-          },
-          {
-            "text": "gw-dpma-dfm-lx",
-            "value": "gw-dpma-dfm-lx",
-            "selected": false
-          },
-          {
-            "text": "gw-dpma-dfm-win",
-            "value": "gw-dpma-dfm-win",
-            "selected": false
-          },
-          {
-            "text": "gw-dpma-lx",
-            "value": "gw-dpma-lx",
-            "selected": false
-          },
-          {
-            "text": "gw-dpma-win",
-            "value": "gw-dpma-win",
-            "selected": false
-          },
-          {
-            "text": "gw-linux",
-            "value": "gw-linux",
-            "selected": false
-          },
-          {
-            "text": "gw-master-win2012r2",
-            "value": "gw-master-win2012r2",
-            "selected": false
-          },
-          {
-            "text": "gw-master-win2k8r2-x64",
-            "value": "gw-master-win2k8r2-x64",
-            "selected": false
-          },
-          {
-            "text": "gw-sg-admin",
-            "value": "gw-sg-admin",
-            "selected": false
-          },
-          {
-            "text": "gw-temp",
-            "value": "gw-temp",
-            "selected": false
-          },
-          {
-            "text": "gw-windows",
-            "value": "gw-windows",
-            "selected": false
-          },
-          {
-            "text": "hhGraphiteVA",
-            "value": "hhGraphiteVA",
-            "selected": false
-          },
-          {
-            "text": "hhcentos1",
-            "value": "hhcentos1",
-            "selected": false
-          },
-          {
-            "text": "hhcentos70",
-            "value": "hhcentos70",
-            "selected": false
-          },
-          {
-            "text": "hhw10",
-            "value": "hhw10",
-            "selected": false
-          },
-          {
-            "text": "hhw2k12r2",
-            "value": "hhw2k12r2",
-            "selected": false
-          },
-          {
-            "text": "hhw81",
-            "value": "hhw81",
-            "selected": false
-          },
-          {
-            "text": "hhwin7",
-            "value": "hhwin7",
-            "selected": false
-          },
-          {
-            "text": "hneumayr-win2008R2",
-            "value": "hneumayr-win2008R2",
-            "selected": false
-          },
-          {
-            "text": "hsw2k8r2",
-            "value": "hsw2k8r2",
-            "selected": false
-          },
-          {
-            "text": "hswin7",
-            "value": "hswin7",
-            "selected": false
-          },
-          {
-            "text": "jensk-2008R2",
-            "value": "jensk-2008R2",
-            "selected": false
-          },
-          {
-            "text": "jjWin1",
-            "value": "jjWin1",
-            "selected": false
-          },
-          {
-            "text": "jmike_centos",
-            "value": "jmike_centos",
-            "selected": false
-          },
-          {
-            "text": "jp2012R2",
-            "value": "jp2012R2",
-            "selected": false
-          },
-          {
-            "text": "jp2016tp3",
-            "value": "jp2016tp3",
-            "selected": false
-          },
-          {
-            "text": "jp2016tp4",
-            "value": "jp2016tp4",
-            "selected": false
-          },
-          {
-            "text": "kw_oel1",
-            "value": "kw_oel1",
-            "selected": false
-          },
-          {
-            "text": "kw_vmdk1",
-            "value": "kw_vmdk1",
-            "selected": false
-          },
-          {
-            "text": "marc-rh70",
-            "value": "marc-rh70",
-            "selected": false
-          },
-          {
-            "text": "marc-rhel70-2",
-            "value": "marc-rhel70-2",
-            "selected": false
-          },
-          {
-            "text": "marc-win2k12",
-            "value": "marc-win2k12",
-            "selected": false
-          },
-          {
-            "text": "mg_redhat65",
-            "value": "mg_redhat65",
-            "selected": false
-          },
-          {
-            "text": "mg_tiebreaker",
-            "value": "mg_tiebreaker",
-            "selected": false
-          },
-          {
-            "text": "mg_tiebreaker2",
-            "value": "mg_tiebreaker2",
-            "selected": false
-          },
-          {
-            "text": "mg_w2k12",
-            "value": "mg_w2k12",
-            "selected": false
-          },
-          {
-            "text": "mgeigel_linux",
-            "value": "mgeigel_linux",
-            "selected": false
-          },
-          {
-            "text": "mgeigel_w2k12",
-            "value": "mgeigel_w2k12",
-            "selected": false
-          },
-          {
-            "text": "mig-1",
-            "value": "mig-1",
-            "selected": false
-          },
-          {
-            "text": "mnLinux",
-            "value": "mnLinux",
-            "selected": false
-          },
-          {
-            "text": "mnW2K12",
-            "value": "mnW2K12",
-            "selected": false
-          },
-          {
-            "text": "mrWin1",
-            "value": "mrWin1",
-            "selected": false
-          },
-          {
-            "text": "mrlx1",
-            "value": "mrlx1",
-            "selected": false
-          },
-          {
-            "text": "mrwin2",
-            "value": "mrwin2",
-            "selected": false
-          },
-          {
-            "text": "mschlossjump01",
-            "value": "mschlossjump01",
-            "selected": false
-          },
-          {
-            "text": "msora01",
-            "value": "msora01",
-            "selected": false
-          },
-          {
-            "text": "msp-centos-test",
-            "value": "msp-centos-test",
-            "selected": false
-          },
-          {
-            "text": "msp-rhel-01",
-            "value": "msp-rhel-01",
-            "selected": false
-          },
-          {
-            "text": "mspengler-vm1_Windows_2012",
-            "value": "mspengler-vm1_Windows_2012",
-            "selected": false
-          },
-          {
-            "text": "msrelora1",
-            "value": "msrelora1",
-            "selected": false
-          },
-          {
-            "text": "mssap01",
-            "value": "mssap01",
-            "selected": false
-          },
-          {
-            "text": "mssap02",
-            "value": "mssap02",
-            "selected": false
-          },
-          {
-            "text": "mssap03",
-            "value": "mssap03",
-            "selected": false
-          },
-          {
-            "text": "mssap04",
-            "value": "mssap04",
-            "selected": false
-          },
-          {
-            "text": "mssap05",
-            "value": "mssap05",
-            "selected": false
-          },
-          {
-            "text": "mssap06",
-            "value": "mssap06",
-            "selected": false
-          },
-          {
-            "text": "mssnap02",
-            "value": "mssnap02",
-            "selected": false
-          },
-          {
-            "text": "mssnap03",
-            "value": "mssnap03",
-            "selected": false
-          },
-          {
-            "text": "mssnapcenter",
-            "value": "mssnapcenter",
-            "selected": false
-          },
-          {
-            "text": "mssnapcenter01",
-            "value": "mssnapcenter01",
-            "selected": false
-          },
-          {
-            "text": "mssnapcenter2",
-            "value": "mssnapcenter2",
-            "selected": false
-          },
-          {
-            "text": "mssnapcenter2k8",
-            "value": "mssnapcenter2k8",
-            "selected": false
-          },
-          {
-            "text": "mswinora01",
-            "value": "mswinora01",
-            "selected": false
-          },
-          {
-            "text": "mswinsap01",
-            "value": "mswinsap01",
-            "selected": false
-          },
-          {
-            "text": "mswinsap02",
-            "value": "mswinsap02",
-            "selected": false
-          },
-          {
-            "text": "niels_GraphiteVA",
-            "value": "niels_GraphiteVA",
-            "selected": false
-          },
-          {
-            "text": "niels_ocum_lnx",
-            "value": "niels_ocum_lnx",
-            "selected": false
-          },
-          {
-            "text": "nrwin2012_barbados1",
-            "value": "nrwin2012_barbados1",
-            "selected": false
-          },
-          {
-            "text": "nrwin2012_barbados2",
-            "value": "nrwin2012_barbados2",
-            "selected": false
-          },
-          {
-            "text": "nrwin2012_iometer1",
-            "value": "nrwin2012_iometer1",
-            "selected": false
-          },
-          {
-            "text": "nrwin2012_mc2n-a_nfs",
-            "value": "nrwin2012_mc2n-a_nfs",
-            "selected": false
-          },
-          {
-            "text": "nrwin2012_mc2n-b_nfs",
-            "value": "nrwin2012_mc2n-b_nfs",
-            "selected": false
-          },
-          {
-            "text": "nrwin2012_optimus_nfs",
-            "value": "nrwin2012_optimus_nfs",
-            "selected": false
-          },
-          {
-            "text": "nrwin2012_prime_nfs",
-            "value": "nrwin2012_prime_nfs",
-            "selected": false
-          },
-          {
-            "text": "ns-w2k8r2",
-            "value": "ns-w2k8r2",
-            "selected": false
-          },
-          {
-            "text": "nscherer-sg1-admin1",
-            "value": "nscherer-sg1-admin1",
-            "selected": false
-          },
-          {
-            "text": "nscherer-sg1-gw1",
-            "value": "nscherer-sg1-gw1",
-            "selected": false
-          },
-          {
-            "text": "nscherer-sg1-install1",
-            "value": "nscherer-sg1-install1",
-            "selected": false
-          },
-          {
-            "text": "nscherer-sg1-stor1",
-            "value": "nscherer-sg1-stor1",
-            "selected": false
-          },
-          {
-            "text": "nscherer-sg1-stor2",
-            "value": "nscherer-sg1-stor2",
-            "selected": false
-          },
-          {
-            "text": "nscherer-sg1-stor3",
-            "value": "nscherer-sg1-stor3",
-            "selected": false
-          },
-          {
-            "text": "oh-linux1",
-            "value": "oh-linux1",
-            "selected": false
-          },
-          {
-            "text": "oh-linux1_RHEL6_3",
-            "value": "oh-linux1_RHEL6_3",
-            "selected": false
-          },
-          {
-            "text": "oh-oc1",
-            "value": "oh-oc1",
-            "selected": false
-          },
-          {
-            "text": "opm1",
-            "value": "opm1",
-            "selected": false
-          },
-          {
-            "text": "pennybacker-release-2_0-beta-2-2015-10-19-02-16-43-35",
-            "value": "pennybacker-release-2_0-beta-2-2015-10-19-02-16-43-35",
-            "selected": false
-          },
-          {
-            "text": "phTestW2K8",
-            "value": "phTestW2K8",
-            "selected": false
-          },
-          {
-            "text": "pmossy_w2012-2",
-            "value": "pmossy_w2012-2",
-            "selected": false
-          },
-          {
-            "text": "pmossy_w2k8r2",
-            "value": "pmossy_w2k8r2",
-            "selected": false
-          },
-          {
-            "text": "pswin2k8",
-            "value": "pswin2k8",
-            "selected": false
-          },
-          {
-            "text": "raphaelk_w2k8r2",
-            "value": "raphaelk_w2k8r2",
-            "selected": false
-          },
-          {
-            "text": "rl-nce-s3",
-            "value": "rl-nce-s3",
-            "selected": false
-          },
-          {
-            "text": "rt-centOS",
-            "value": "rt-centOS",
-            "selected": false
-          },
-          {
-            "text": "rt-w2k8r2",
-            "value": "rt-w2k8r2",
-            "selected": false
-          },
-          {
-            "text": "rtoubali-w2kr2001",
-            "value": "rtoubali-w2kr2001",
-            "selected": false
-          },
-          {
-            "text": "rtoubali-wfa30-svmdr",
-            "value": "rtoubali-wfa30-svmdr",
-            "selected": false
-          },
-          {
-            "text": "rtoubali-wfa31",
-            "value": "rtoubali-wfa31",
-            "selected": false
-          },
-          {
-            "text": "rtwin2012R2",
-            "value": "rtwin2012R2",
-            "selected": false
-          },
-          {
-            "text": "rz-ubuntu1404",
-            "value": "rz-ubuntu1404",
-            "selected": false
-          },
-          {
-            "text": "sk_w2k12R2",
-            "value": "sk_w2k12R2",
-            "selected": false
-          },
-          {
-            "text": "skeil_w2k12",
-            "value": "skeil_w2k12",
-            "selected": false
-          },
-          {
-            "text": "storagex",
-            "value": "storagex",
-            "selected": false
-          },
-          {
-            "text": "sw_w2k12r2",
-            "value": "sw_w2k12r2",
-            "selected": false
-          },
-          {
-            "text": "tlichten-win",
-            "value": "tlichten-win",
-            "selected": false
-          },
-          {
-            "text": "tsi_poc_winjumphost",
-            "value": "tsi_poc_winjumphost",
-            "selected": false
-          },
-          {
-            "text": "vasa",
-            "value": "vasa",
-            "selected": false
-          },
-          {
-            "text": "vmware-io-analyzer-1_6_1",
-            "value": "vmware-io-analyzer-1_6_1",
-            "selected": false
-          },
-          {
-            "text": "vsc",
-            "value": "vsc",
-            "selected": false
-          },
-          {
-            "text": "wfa1",
-            "value": "wfa1",
-            "selected": false
-          },
-          {
-            "text": "win-demo-01",
-            "value": "win-demo-01",
-            "selected": false
-          },
-          {
-            "text": "win12_demo_28_09_15",
-            "value": "win12_demo_28_09_15",
-            "selected": false
-          },
-          {
-            "text": "win2008-wfa",
-            "value": "win2008-wfa",
-            "selected": false
-          },
-          {
-            "text": "win2012R2-01",
-            "value": "win2012R2-01",
-            "selected": false
-          },
-          {
-            "text": "win2012R2-02",
-            "value": "win2012R2-02",
-            "selected": false
-          },
-          {
-            "text": "win2012R2-03",
-            "value": "win2012R2-03",
-            "selected": false
-          },
-          {
-            "text": "win2012R2-04",
-            "value": "win2012R2-04",
-            "selected": false
-          },
-          {
-            "text": "win2012R2-05",
-            "value": "win2012R2-05",
-            "selected": false
-          },
-          {
-            "text": "win2012R2-tlichten",
-            "value": "win2012R2-tlichten",
-            "selected": false
-          }
-        ],
         "query": "vmperf.$Group.*",
+        "refresh": 0,
         "refresh_on_load": false,
         "regex": "",
         "type": "query"
@@ -1865,12 +2083,12 @@
       {
         "allFormat": "glob",
         "current": {
-          "selected": true,
           "tags": [],
-          "text": "8",
-          "value": "8"
+          "text": "5",
+          "value": "5"
         },
         "datasource": null,
+        "hide": 0,
         "includeAll": false,
         "name": "TopResources",
         "options": [
@@ -1895,7 +2113,7 @@
             "value": "4"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "5",
             "value": "5"
           },
@@ -1905,7 +2123,7 @@
             "value": "6"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "8",
             "value": "8"
           },
@@ -1936,6 +2154,7 @@
           }
         ],
         "query": "1,2,3,4,5,6,8,10,15,20,40,*",
+        "refresh": 0,
         "refresh_on_load": false,
         "type": "custom"
       }
@@ -1945,7 +2164,19 @@
     "list": []
   },
   "refresh": "5m",
-  "schemaVersion": 8,
-  "version": 2,
-  "links": []
+  "schemaVersion": 12,
+  "version": 4,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "VMPerf"
+      ],
+      "title": "VMPerf Dashboards",
+      "type": "dashboards"
+    }
+  ]
 }
