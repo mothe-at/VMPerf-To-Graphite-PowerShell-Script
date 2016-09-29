@@ -1,6 +1,7 @@
 # v1.5.1 (2016-09-29)
 * **[FIXED]** Changed Encoding of Script to UTF-8
 * **[FIXED]** Fixed a bug that causes wrong number of IOPS and KBs with multiple vDisks
+* **[FIXED]** Calculate the weighted average of the read and write latency of all disks instead of the simple average
 
 # v1.5.0 (2016-06-04)
 * **[ADDED]** Added feature to send metrics to more than one carbon host at a time. Fixed [#2] (https://github.com/mothe-at/VMPerf-To-Graphite-PowerShell-Script/issues/2)

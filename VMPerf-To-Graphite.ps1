@@ -226,6 +226,23 @@ do {
 return $vcc
 }
 
+# -------------------------------------------------------------------------------------
+# Calculate the weighted average of the values in two arrays (IOPS and Latency, mostly)
+# -------------------------------------------------------------------------------------
+function weighted_average($acount,$avalues) {
+    for ($i=0; $i -lt $acount.Length; $i++) {
+        $p += ($acount[$i]*$avalues[$i])
+        $s += $acount[$i]
+    }
+
+    if ($s -gt 0) {
+        $wa = $p/$s
+    } else {
+        $wa = 0
+    }
+    return( $wa )
+}
+
 # -----------------------------------------------------------------------------------------------------------------------------------------
 # -- MAIN PROCEDURE -----------------------------------------------------------------------------------------------------------------------
 # -----------------------------------------------------------------------------------------------------------------------------------------
@@ -389,12 +406,8 @@ if ($FromLastPoll -ne "") {
 	        	    WriteKBps = $_.Group | where {$_.MetricId -eq "datastore.write.average"} |
 	        	    	Measure-Object -Property Value -Sum |
 	        	    	select -ExpandProperty Sum
-	        	    ReadLat = $_.Group | where {$_.MetricId -eq "datastore.totalreadlatency.average"} |
-	        	    	Measure-Object -Property Value -Average |
-	        	    	select -ExpandProperty Average
-	        	    WriteLat = $_.Group | where {$_.MetricId -eq "datastore.totalwritelatency.average"} |
-	        	    	Measure-Object -Property Value -Average |
-	        	    	select -ExpandProperty Average
+					ReadLat = weighted_average ($_.Group | where {$_.MetricId -eq "datastore.numberreadaveraged.average"} | Sort-Object Instance, Timestamp).Value ($_.Group | where {$_.MetricId -eq "datastore.totalreadlatency.average"} | Sort-Object Instance, Timestamp).Value
+					WriteLat = weighted_average ($_.Group | where {$_.MetricId -eq "datastore.numberwriteaveraged.average"} | Sort-Object Instance, Timestamp).Value ($_.Group | where {$_.MetricId -eq "datastore.totalwritelatency.average"} | Sort-Object Instance, Timestamp).Value
 	        	    CPU = $_.Group | where {$_.MetricId -eq "cpu.usage.average"} |
 	        	    	Measure-Object -Property Value -Average |
 	        	    	select -ExpandProperty Average
@@ -402,7 +415,6 @@ if ($FromLastPoll -ne "") {
 	            }
 
             [void] ($stats.add($stat))
-            
 
         }
         Write-Progress -Activity "Receiving metrics..." -Completed -Id 666
