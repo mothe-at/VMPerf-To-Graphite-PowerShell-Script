@@ -1,4 +1,4 @@
-# v1.5.1 (2016-09-29)
+﻿# v1.5.1 (2016-09-29)
 * **[FIXED]** Changed Encoding of Script to UTF-8
 * **[FIXED]** Fixed a bug that causes wrong number of IOPS and KBs with multiple vDisks
 * **[FIXED]** Calculate the weighted average of the read and write latency of all disks instead of the simple average
