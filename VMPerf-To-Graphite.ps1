@@ -28,7 +28,7 @@ Run the cmdlet just once, but do not send the metrics to Graphite, instead open 
 This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 It is free-of-charge and it comes without any warranty, to the extent permitted by applicable law.
 Matthias Rettl, 2016
-Script Version 1.5.0 (2016-Jun-04)
+Script Version 1.5.1 (2016-09-29)
 .LINK
 https://github.com/mothe-at/VMPerf-To-Graphite-PowerShell-Script
 http://rettl.org/scripts/
@@ -378,17 +378,17 @@ if ($FromLastPoll -ne "") {
 	        	    Timestamp = $_.Group[0].Timestamp
 	        	    Datastore = $dsTab[$_.Group[0].Instance]
 	        	    ReadIOPS = $_.Group | where {$_.MetricId -eq "datastore.numberreadaveraged.average"} |
-	        	    	Measure-Object -Property Value -Average |
-	        	    	select -ExpandProperty Average
+	        	    	Measure-Object -Property Value -Sum |
+	        	    	select -ExpandProperty Sum
 	        	    WriteIOPS = $_.Group | where {$_.MetricId -eq "datastore.numberwriteaveraged.average"} |
-	        	    	Measure-Object -Property Value -Average |
-	        	    	select -ExpandProperty Average
+	        	    	Measure-Object -Property Value -Sum |
+	        	    	select -ExpandProperty Sum
 	        	    ReadKBps = $_.Group | where {$_.MetricId -eq "datastore.read.average"} |
-	        	    	Measure-Object -Property Value -Average |
-	        	    	select -ExpandProperty Average
+	        	    	Measure-Object -Property Value -Sum |
+	        	    	select -ExpandProperty Sum
 	        	    WriteKBps = $_.Group | where {$_.MetricId -eq "datastore.write.average"} |
-	        	    	Measure-Object -Property Value -Average |
-	        	    	select -ExpandProperty Average
+	        	    	Measure-Object -Property Value -Sum |
+	        	    	select -ExpandProperty Sum
 	        	    ReadLat = $_.Group | where {$_.MetricId -eq "datastore.totalreadlatency.average"} |
 	        	    	Measure-Object -Property Value -Average |
 	        	    	select -ExpandProperty Average
