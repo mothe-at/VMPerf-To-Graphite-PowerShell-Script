@@ -1,7 +1,10 @@
+# v1.5.1 (2016-09-29)
+* **[FIXED]** Changed Encoding of Script to UTF-8
+* **[FIXED]** Fixed a bug that causes wrong number of IOPS and KBs with multiple vDisks
+
 # v1.5.0 (2016-06-04)
 * **[ADDED]** Added feature to send metrics to more than one carbon host at a time. Fixed [#2] (https://github.com/mothe-at/VMPerf-To-Graphite-PowerShell-Script/issues/2)
 * **[ADDED]** Ability to add portnumber for carbon server with the hostname (`-Graphiteserver <hostname>[:<port>][,<hostname>[:<port>][,...]]`)
-
 
 # v1.4.0 (2016-05-20)
 * **[FIXED]** Parameter "-EventLogLevel None" could lead to an error message.
