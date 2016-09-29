@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 	Read Virtual Machine statistics from vCenter and send the results to Graphite.
 .DESCRIPTION
