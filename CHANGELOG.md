@@ -1,5 +1,6 @@
 ﻿# v1.5.2 (2016-11-30)
 * **[FIXED]** Fixed a problem with PowerCLI 6.5. Fixed [#8] (https://github.com/mothe-at/VMPerf-To-Graphite-PowerShell-Script/issues/8)
+* **[ADDED]** Ability to omit the "-User" and "-Password" switches to log in to the vCenter server using current credentials. Fixed [#9] (https://github.com/mothe-at/VMPerf-To-Graphite-PowerShell-Script/issues/9)
 
 # v1.5.1 (2016-09-29)
 * **[FIXED]** Changed Encoding of Script to UTF-8
