@@ -226,6 +226,9 @@ do {
 return $vcc
 }
 
+# -------------------------------------------------------------------------------------
+# Calculate the weighted average of the values in two arrays (IOPS and Latency, mostly)
+# -------------------------------------------------------------------------------------
 function weighted_average($acount,$avalues) {
     for ($i=0; $i -lt $acount.Length; $i++) {
         $p += ($acount[$i]*$avalues[$i])
@@ -269,7 +272,6 @@ if ( !(Get-Module -Name VMware.VimAutomation.Core -ErrorAction SilentlyContinue)
     $VerbosePreference = "SilentlyContinue"
 
     # Get the Install-Path of PowerCLI. If null then PowerCLI may not be installed.
-
 	$idir = (Get-Module -ListAvailable -Name VMware.VimAutomation.Core).ModuleBase		# Usually something like "C:\Program Files (x86)\VMware\Infrastructure\vSphere PowerCLI\Modules\VMware.VimAutomation.Core"
 	
     if ($idir -eq $null) {
@@ -403,16 +405,8 @@ if ($FromLastPoll -ne "") {
 	        	    WriteKBps = $_.Group | where {$_.MetricId -eq "datastore.write.average"} |
 	        	    	Measure-Object -Property Value -Sum |
 	        	    	select -ExpandProperty Sum
-		
 					ReadLat = weighted_average ($_.Group | where {$_.MetricId -eq "datastore.numberreadaveraged.average"} | Sort-Object Instance, Timestamp).Value ($_.Group | where {$_.MetricId -eq "datastore.totalreadlatency.average"} | Sort-Object Instance, Timestamp).Value
 					WriteLat = weighted_average ($_.Group | where {$_.MetricId -eq "datastore.numberwriteaveraged.average"} | Sort-Object Instance, Timestamp).Value ($_.Group | where {$_.MetricId -eq "datastore.totalwritelatency.average"} | Sort-Object Instance, Timestamp).Value
-
-	        	    #ReadLat = $_.Group | where {$_.MetricId -eq "datastore.totalreadlatency.average"} |
-	        	    #	Measure-Object -Property Value -Average |
-					#	select -ExpandProperty Average
-	        	    #WriteLat = $_.Group | where {$_.MetricId -eq "datastore.totalwritelatency.average"} |
-	        	    #	Measure-Object -Property Value -Average |
-	        	    #	select -ExpandProperty Average
 	        	    CPU = $_.Group | where {$_.MetricId -eq "cpu.usage.average"} |
 	        	    	Measure-Object -Property Value -Average |
 	        	    	select -ExpandProperty Average
@@ -420,7 +414,6 @@ if ($FromLastPoll -ne "") {
 	            }
 
             [void] ($stats.add($stat))
-            
 
         }
         Write-Progress -Activity "Receiving metrics..." -Completed -Id 666
