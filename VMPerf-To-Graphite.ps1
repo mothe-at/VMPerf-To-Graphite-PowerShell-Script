@@ -28,7 +28,7 @@ Run the cmdlet just once, but do not send the metrics to Graphite, instead open 
 This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 It is free-of-charge and it comes without any warranty, to the extent permitted by applicable law.
 Matthias Rettl, 2016
-Script Version 1.5.1 (2016-09-29)
+Script Version 1.5.2 (2016-11-30)
 .LINK
 https://github.com/mothe-at/VMPerf-To-Graphite-PowerShell-Script
 http://rettl.org/scripts/
@@ -226,9 +226,6 @@ do {
 return $vcc
 }
 
-# -------------------------------------------------------------------------------------
-# Calculate the weighted average of the values in two arrays (IOPS and Latency, mostly)
-# -------------------------------------------------------------------------------------
 function weighted_average($acount,$avalues) {
     for ($i=0; $i -lt $acount.Length; $i++) {
         $p += ($acount[$i]*$avalues[$i])
@@ -271,18 +268,18 @@ if ( !(Get-Module -Name VMware.VimAutomation.Core -ErrorAction SilentlyContinue)
     $oldverbosepreference = $VerbosePreference
     $VerbosePreference = "SilentlyContinue"
 
-    # Read the Install-Path of PowerCLI from the Registry
-    $ikey = 'HKLM:\SOFTWARE\Microsoft\PowerShell\1\PowerShellSnapIns\VMware.VimAutomation.Core'
-    $idir = (Get-ItemProperty -Path $ikey -Name ApplicationBase -ErrorAction SilentlyContinue -ErrorVariable err).ApplicationBase
+    # Get the Install-Path of PowerCLI. If null then PowerCLI may not be installed.
 
-    if ($err) {
+	$idir = (Get-Module -ListAvailable -Name VMware.VimAutomation.Core).ModuleBase		# Usually something like "C:\Program Files (x86)\VMware\Infrastructure\vSphere PowerCLI\Modules\VMware.VimAutomation.Core"
+	
+    if ($idir -eq $null) {
         $msg="Error initializing VMWare PowerCLI environment. Cannot find path to VMWare PowerCLI in Registry. Make sure VMWare PowerCLI is installed on this host!"
         Write-Error $msg
         Write-To-Windows-EventLog "Error" 3001 $msg
         Exit
     }
     
-    . "$idir\Scripts\Initialize-PowerCLIEnvironment.ps1"
+    . "$idir\..\..\Scripts\Initialize-PowerCLIEnvironment.ps1"
     
     # Reset the Verbose setting to its previously value
     $VerbosePreference = $oldverbosepreference
@@ -406,8 +403,16 @@ if ($FromLastPoll -ne "") {
 	        	    WriteKBps = $_.Group | where {$_.MetricId -eq "datastore.write.average"} |
 	        	    	Measure-Object -Property Value -Sum |
 	        	    	select -ExpandProperty Sum
+		
 					ReadLat = weighted_average ($_.Group | where {$_.MetricId -eq "datastore.numberreadaveraged.average"} | Sort-Object Instance, Timestamp).Value ($_.Group | where {$_.MetricId -eq "datastore.totalreadlatency.average"} | Sort-Object Instance, Timestamp).Value
 					WriteLat = weighted_average ($_.Group | where {$_.MetricId -eq "datastore.numberwriteaveraged.average"} | Sort-Object Instance, Timestamp).Value ($_.Group | where {$_.MetricId -eq "datastore.totalwritelatency.average"} | Sort-Object Instance, Timestamp).Value
+
+	        	    #ReadLat = $_.Group | where {$_.MetricId -eq "datastore.totalreadlatency.average"} |
+	        	    #	Measure-Object -Property Value -Average |
+					#	select -ExpandProperty Average
+	        	    #WriteLat = $_.Group | where {$_.MetricId -eq "datastore.totalwritelatency.average"} |
+	        	    #	Measure-Object -Property Value -Average |
+	        	    #	select -ExpandProperty Average
 	        	    CPU = $_.Group | where {$_.MetricId -eq "cpu.usage.average"} |
 	        	    	Measure-Object -Property Value -Average |
 	        	    	select -ExpandProperty Average
@@ -415,6 +420,7 @@ if ($FromLastPoll -ne "") {
 	            }
 
             [void] ($stats.add($stat))
+            
 
         }
         Write-Progress -Activity "Receiving metrics..." -Completed -Id 666
