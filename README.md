@@ -71,7 +71,7 @@ To call the script to run infinitely, waiting 5 minutes between each iteration, 
 	
 -User <String>
 	Specifies the user name you want to use for authenticating with the vCenter server.
-	
+	If this parameter is omitted, the currently logged on user will be used to authenticate with vCenter server.
 	Required?					false
 	Position?					2
 	Default value				vcenter_user
