@@ -28,7 +28,7 @@ Run the cmdlet just once, but do not send the metrics to Graphite, instead open 
 This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 It is free-of-charge and it comes without any warranty, to the extent permitted by applicable law.
 Matthias Rettl, 2016
-Script Version 1.5.1 (2016-09-29)
+Script Version 1.5.2 (2016-11-30)
 .LINK
 https://github.com/mothe-at/VMPerf-To-Graphite-PowerShell-Script
 http://rettl.org/scripts/
@@ -39,9 +39,10 @@ param(
 	# Specifies the IP address or the DNS name of the vCenter server to which you want to connect.
     [string]$Server = "your_default_vcenter_server",
 	# Specifies the user name you want to use for authenticating with the vCenter server.
-    [string]$User = "vcenter_user", 
+	# If this parameter is omitted, the currently logged on user will try to authenticate with the vCenter server.
+    [string]$User = "", 
 	# Specifies the password you want to use for authenticating with the vCenter server.
-    [string]$Password = "vcenter_password",
+    [string]$Password = "",
 	# Specifies the Internet protocol you want to use for the connection. It can be either http or https.
     [ValidateSet("http","https")][string]$Protocol = "https",
 	# Specifies the VMWare Datacenters you want to receive data from. Default is to read all Clusters managed by VCenter server.
@@ -206,12 +207,20 @@ function connectviserver($stoponerror)
 if ($stoponerror) { $erroraction = "Stop" } else { $erroraction = "Continue" }
 
 do {
-    $msg = "Connecting to vCenter Server $server as $user"
+	if ($user -ne "") {
+		$msg = "Connecting to vCenter Server $server as $user"
+	} else {
+		$msg = "Connecting to vCenter Server $server as currently logged on user " + [Environment]::UserDomainName + "\" + [Environment]::UserName
+	}
     Write-Verbose "$(Get-Date -format G) $msg"
     Write-To-Windows-EventLog "Information" 1002 $msg
 
-    [void] ( $vcc = Connect-VIServer -Server $server -User $user -Password $password -Protocol $protocol -ErrorAction $erroraction -ErrorVariable err -Verbose:$false )
-
+	if ($user -ne "") {
+		[void] ( $vcc = Connect-VIServer -Server $server -User $user -Password $password -Protocol $protocol -ErrorAction $erroraction -ErrorVariable err -Verbose:$false )
+	} else {
+		[void] ( $vcc = Connect-VIServer -Server $server -Protocol $protocol -ErrorAction $erroraction -ErrorVariable err -Verbose:$false )
+	}
+	
     if ($err) {
     	$msg = "Connection to $server failed! Will retry in 10 seconds"
        	Write-Warning "$(Get-Date -format G) $msg"
@@ -271,18 +280,17 @@ if ( !(Get-Module -Name VMware.VimAutomation.Core -ErrorAction SilentlyContinue)
     $oldverbosepreference = $VerbosePreference
     $VerbosePreference = "SilentlyContinue"
 
-    # Read the Install-Path of PowerCLI from the Registry
-    $ikey = 'HKLM:\SOFTWARE\Microsoft\PowerShell\1\PowerShellSnapIns\VMware.VimAutomation.Core'
-    $idir = (Get-ItemProperty -Path $ikey -Name ApplicationBase -ErrorAction SilentlyContinue -ErrorVariable err).ApplicationBase
-
-    if ($err) {
+    # Get the Install-Path of PowerCLI. If null then PowerCLI may not be installed.
+	$idir = (Get-Module -ListAvailable -Name VMware.VimAutomation.Core).ModuleBase		# Usually something like "C:\Program Files (x86)\VMware\Infrastructure\vSphere PowerCLI\Modules\VMware.VimAutomation.Core"
+	
+    if ($idir -eq $null) {
         $msg="Error initializing VMWare PowerCLI environment. Cannot find path to VMWare PowerCLI in Registry. Make sure VMWare PowerCLI is installed on this host!"
         Write-Error $msg
         Write-To-Windows-EventLog "Error" 3001 $msg
         Exit
     }
     
-    . "$idir\Scripts\Initialize-PowerCLIEnvironment.ps1"
+    . "$idir\..\..\Scripts\Initialize-PowerCLIEnvironment.ps1"
     
     # Reset the Verbose setting to its previously value
     $VerbosePreference = $oldverbosepreference
