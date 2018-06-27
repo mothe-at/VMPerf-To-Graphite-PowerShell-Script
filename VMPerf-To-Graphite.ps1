@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 	Read Virtual Machine statistics from vCenter and send the results to Graphite.
 .DESCRIPTION
@@ -332,7 +332,9 @@ $metrics =	"datastore.numberreadaveraged.average",
 			"datastore.read.average",
 			"datastore.totalreadlatency.average",
 			"datastore.totalwritelatency.average",
-			"cpu.usage.average"
+			"cpu.usage.average”,
+			"net.received.average",
+			"net.transmitted.average"
 
 $iteration = 1
 
@@ -419,6 +421,12 @@ if ($FromLastPoll -ne "") {
 	        	    CPU = $_.Group | where {$_.MetricId -eq "cpu.usage.average"} |
 	        	    	Measure-Object -Property Value -Average |
 	        	    	select -ExpandProperty Average
+	        	    NetworkRxKBps = $_.Group | where {$_.MetricId -eq "net.received.average"} |
+	        	    	Measure-Object -Property Value -Sum |
+	        	    	select -ExpandProperty Sum
+	        	    NetworkTxKBps = $_.Group | where {$_.MetricId -eq "net.transmitted.average"} |
+	        	    	Measure-Object -Property Value -Sum |
+	        	    	select -ExpandProperty Sum
 	        	    }
 	            }
 
@@ -467,6 +475,11 @@ if ($FromLastPoll -ne "") {
 	    	    $results.add($results.count, $result)
 	    	    $result = $prefix + $vm + ".CPU " + [int]$stat.CPU + " " + (get-date(($stat.Timestamp).touniversaltime()) -uformat "%s")
 	    	    $results.add($results.count, $result)
+	    	    $result = $prefix + $vm + ".NetworkRxKBps " + [int]$stat.NetworkRxKBps + " " + (get-date(($stat.Timestamp).touniversaltime()) -uformat "%s")
+	    	    $results.add($results.count, $result)
+	    	    $result = $prefix + $vm + ".NetworkTxKBps " + [int]$stat.NetworkTxKBps + " " + (get-date(($stat.Timestamp).touniversaltime()) -uformat "%s")
+	    	    $results.add($results.count, $result)
+
                 
                 }
             }
